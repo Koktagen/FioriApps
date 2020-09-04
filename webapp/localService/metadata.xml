@@ -1,0 +1,1082 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://cloud.sapienssolutions.eu/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://cloud.sapienssolutions.eu/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://cloud.sapienssolutions.eu/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://cloud.sapienssolutions.eu/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://cloud.sapienssolutions.eu/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="API_BUSINESS_PARTNER" xml:lang="sh" sap:schema-version="1"
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="A_AddressEmailAddressType" sap:label="Adresa - adresa e-pošte" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AddressID"/>
+                    <PropertyRef Name="Person"/>
+                    <PropertyRef Name="OrdinalNumber"/>
+                </Key>
+                <Property Name="AddressID" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj adrese"/>
+                <Property Name="Person" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj lica"/>
+                <Property Name="OrdinalNumber" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="NonNegative" sap:label="Sledni broj"/>
+                <Property Name="IsDefaultEmailAddress" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Standardna adresa" sap:quickinfo="Oznaka: Ova adresa je standardna adresa"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="241" sap:label="Adresa e-pošte"/>
+                <Property Name="SearchEmailAddress" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Adresa e-pošte" sap:quickinfo="Polje traženja adrese e-pošte"/>
+            </EntityType>
+            <EntityType Name="A_AddressFaxNumberType" sap:label="Adresa - broj faksa" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AddressID"/>
+                    <PropertyRef Name="Person"/>
+                    <PropertyRef Name="OrdinalNumber"/>
+                </Key>
+                <Property Name="AddressID" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj adrese"/>
+                <Property Name="Person" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj lica"/>
+                <Property Name="OrdinalNumber" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="NonNegative" sap:label="Sledni broj"/>
+                <Property Name="IsDefaultFaxNumber" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Stand.broj" sap:quickinfo="Standardna adresa pošiljaoca u ovom tipu komunikacije"/>
+                <Property Name="FaxCountry" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Zemlja" sap:quickinfo="Zemlja za broj telefona/faksa"/>
+                <Property Name="FaxNumber" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Faks" sap:quickinfo="Broj faksa: Pozivni broj+broj"/>
+                <Property Name="FaxNumberExtension" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Lokal" sap:quickinfo="Broj faksa: Lokal"/>
+                <Property Name="InternationalFaxNumber" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Broj faksa" sap:quickinfo="Potpuni broj: Pozivni broj+broj+lokal"/>
+            </EntityType>
+            <EntityType Name="A_AddressHomePageURLType" sap:label="Adresa - URL početne stranice" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AddressID"/>
+                    <PropertyRef Name="Person"/>
+                    <PropertyRef Name="OrdinalNumber"/>
+                    <PropertyRef Name="ValidityStartDate"/>
+                    <PropertyRef Name="IsDefaultURLAddress"/>
+                </Key>
+                <Property Name="AddressID" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj adrese"/>
+                <Property Name="Person" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj lica"/>
+                <Property Name="OrdinalNumber" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="NonNegative" sap:label="Sledni broj"/>
+                <Property Name="ValidityStartDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="od" sap:quickinfo="Dat.poč.validn.- u trenutnoj verziji moguće samo 00010101"/>
+                <Property Name="IsDefaultURLAddress" Type="Edm.Boolean" Nullable="false" sap:display-format="UpperCase" sap:label="Standardna adresa" sap:quickinfo="Oznaka: Ova adresa je standardna adresa"/>
+                <Property Name="SearchURLAddress" Type="Edm.String" MaxLength="50" sap:display-format="UpperCase" sap:label="URI adresa" sap:quickinfo="URI polje traženja adrese"/>
+                <Property Name="URLFieldLength" Type="Edm.Int16" sap:label="URI dužina" sap:quickinfo="URI dužina polja"/>
+                <Property Name="WebsiteURL" Type="Edm.String" MaxLength="2048" sap:label="URI" sap:quickinfo="Univerzalni indentifikator resursa (URI)"/>
+            </EntityType>
+            <EntityType Name="A_AddressPhoneNumberType" sap:label="Adresa - broj telefona" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AddressID"/>
+                    <PropertyRef Name="Person"/>
+                    <PropertyRef Name="OrdinalNumber"/>
+                </Key>
+                <Property Name="AddressID" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj adrese"/>
+                <Property Name="Person" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj lica"/>
+                <Property Name="OrdinalNumber" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="NonNegative" sap:label="Sledni broj"/>
+                <Property Name="DestinationLocationCountry" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Zemlja" sap:quickinfo="Zemlja za broj telefona/faksa"/>
+                <Property Name="IsDefaultPhoneNumber" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Stand.broj" sap:quickinfo="Standardna adresa pošiljaoca u ovom tipu komunikacije"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Telefon" sap:quickinfo="Broj telefona: Pozivni broj+broj"/>
+                <Property Name="PhoneNumberExtension" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Lokal" sap:quickinfo="Broj telefona: Lokal"/>
+                <Property Name="InternationalPhoneNumber" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Broj telefona" sap:quickinfo="Potpuni broj: Pozivni broj+broj+lokal"/>
+                <Property Name="PhoneNumberType" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Mob.telefon" sap:quickinfo="Pokazatelj: Telefon je mobilni telefon"/>
+            </EntityType>
+            <EntityType Name="A_BPContactToAddressType" sap:label="Adresa kontakt osobe poslovnog partnera" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="RelationshipNumber"/>
+                    <PropertyRef Name="BusinessPartnerCompany"/>
+                    <PropertyRef Name="BusinessPartnerPerson"/>
+                    <PropertyRef Name="ValidityEndDate"/>
+                    <PropertyRef Name="AddressID"/>
+                </Key>
+                <Property Name="RelationshipNumber" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="UpperCase" sap:label="Broj odnosa PP"/>
+                <Property Name="BusinessPartnerCompany" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Poslovni partner" sap:quickinfo="Broj poslovnog partnera"/>
+                <Property Name="BusinessPartnerPerson" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Poslovni partner" sap:quickinfo="Broj poslovnog partnera"/>
+                <Property Name="ValidityEndDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Važi do" sap:quickinfo="Datum validnosti (važi do)"/>
+                <Property Name="AddressID" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj adrese"/>
+                <Property Name="AddressNumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj adrese"/>
+                <Property Name="AdditionalStreetPrefixName" Type="Edm.String" MaxLength="40" sap:label="Ulica 3"/>
+                <Property Name="AdditionalStreetSuffixName" Type="Edm.String" MaxLength="40" sap:label="Ulica 5"/>
+                <Property Name="AddressTimeZone" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Vremenska zona" sap:quickinfo="Vremenska zona adrese"/>
+                <Property Name="CareOfName" Type="Edm.String" MaxLength="40" sap:label="c/o" sap:quickinfo="c/o ime"/>
+                <Property Name="CityCode" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Šifra grada" sap:quickinfo="Šifra grada za fajl grada/ulice"/>
+                <Property Name="CityName" Type="Edm.String" MaxLength="40" sap:label="Grad"/>
+                <Property Name="CompanyPostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Pošt.broj kompanije" sap:quickinfo="Poštanski broj kompanije (za velike kupce)"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Ključ zemlje"/>
+                <Property Name="County" Type="Edm.String" MaxLength="40" sap:label="Okrug"/>
+                <Property Name="DeliveryServiceNumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj usluge isporuke"/>
+                <Property Name="DeliveryServiceTypeCode" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Tip usl.isporuke" sap:quickinfo="Tip usluge isporuke"/>
+                <Property Name="District" Type="Edm.String" MaxLength="40" sap:label="Oblast"/>
+                <Property Name="FormOfAddress" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Titula" sap:quickinfo="Ključ načina oslovljavanja" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FullName" Type="Edm.String" MaxLength="80" sap:label="Puno ime" sap:quickinfo="Puno ime strane (posl.partner, org.jedinica, adresa dok.)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="HomeCityName" Type="Edm.String" MaxLength="40" sap:label="Drugi grad" sap:quickinfo="Grad (različito od poštanskog grada)"/>
+                <Property Name="HouseNumber" Type="Edm.String" MaxLength="10" sap:label="Kućni broj"/>
+                <Property Name="HouseNumberSupplementText" Type="Edm.String" MaxLength="10" sap:label="Dodatak" sap:quickinfo="Dodatak kućnom broju"/>
+                <Property Name="Language" Type="Edm.String" MaxLength="2" sap:label="Ključ jezika"/>
+                <Property Name="POBox" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Poštanski fah"/>
+                <Property Name="POBoxDeviatingCityName" Type="Edm.String" MaxLength="40" sap:label="Poštanski fah - grad" sap:quickinfo="Poštanski fah grada"/>
+                <Property Name="POBoxDeviatingCountry" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Zemlja poštans.faha" sap:quickinfo="Zemlja poštanskog faha"/>
+                <Property Name="POBoxDeviatingRegion" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Poštanski fah regije" sap:quickinfo="Regija za poštanski fah (zemlja, država, provinc., ."/>
+                <Property Name="POBoxIsWithoutNumber" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Poš.fah bez br." sap:quickinfo="Oznaka: Poštanski fah bez broja"/>
+                <Property Name="POBoxLobbyName" Type="Edm.String" MaxLength="40" sap:label="Stanica pošt.faha" sap:quickinfo="Stanica poštanskog faha"/>
+                <Property Name="POBoxPostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Pošt.broj pošt.faha" sap:quickinfo="Poštanski broj poštanskog faha"/>
+                <Property Name="Person" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj lica" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Poštanski broj" sap:quickinfo="Poštanski broj grada"/>
+                <Property Name="PrfrdCommMediumType" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Metod komunikac." sap:quickinfo="Metod komunikacije (ključ) (centr.upravljanje adresama)"/>
+                <Property Name="Region" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Regija" sap:quickinfo="Regija (država, pokrajina, okrug)"/>
+                <Property Name="StreetName" Type="Edm.String" MaxLength="60" sap:label="Ulica"/>
+                <Property Name="StreetPrefixName" Type="Edm.String" MaxLength="40" sap:label="Ulica 2"/>
+                <Property Name="StreetSuffixName" Type="Edm.String" MaxLength="40" sap:label="Ulica 4"/>
+                <Property Name="TaxJurisdiction" Type="Edm.String" MaxLength="15" sap:display-format="UpperCase" sap:label="Poreska nadležnost"/>
+                <Property Name="TransportZone" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Transportna zona" sap:quickinfo="Transportna zona do ili od koje se isporučuje roba"/>
+                <NavigationProperty Name="to_EmailAddress" Relationship="API_BUSINESS_PARTNER.assoc_76A1D4C9690D91482219A96E6133DCA1" FromRole="FromRole_assoc_76A1D4C9690D91482219A96E6133DCA1" ToRole="ToRole_assoc_76A1D4C9690D91482219A96E6133DCA1"/>
+                <NavigationProperty Name="to_FaxNumber" Relationship="API_BUSINESS_PARTNER.assoc_EC8BD55FE296CB9F7E96A12A10A83C8A" FromRole="FromRole_assoc_EC8BD55FE296CB9F7E96A12A10A83C8A" ToRole="ToRole_assoc_EC8BD55FE296CB9F7E96A12A10A83C8A"/>
+                <NavigationProperty Name="to_MobilePhoneNumber" Relationship="API_BUSINESS_PARTNER.assoc_A30D7A481BC8C28A25685BA876365019" FromRole="FromRole_assoc_A30D7A481BC8C28A25685BA876365019" ToRole="ToRole_assoc_A30D7A481BC8C28A25685BA876365019"/>
+                <NavigationProperty Name="to_PhoneNumber" Relationship="API_BUSINESS_PARTNER.assoc_E5744DCC3F8BA081306832D86DBAE35B" FromRole="FromRole_assoc_E5744DCC3F8BA081306832D86DBAE35B" ToRole="ToRole_assoc_E5744DCC3F8BA081306832D86DBAE35B"/>
+                <NavigationProperty Name="to_URLAddress" Relationship="API_BUSINESS_PARTNER.assoc_313909BAAED14CA9CB4829C648286478" FromRole="FromRole_assoc_313909BAAED14CA9CB4829C648286478" ToRole="ToRole_assoc_313909BAAED14CA9CB4829C648286478"/>
+            </EntityType>
+            <EntityType Name="A_BPContactToFuncAndDeptType" sap:label="Poslovni partner - kontakt osoba za funkciju i odeljenje" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="RelationshipNumber"/>
+                    <PropertyRef Name="BusinessPartnerCompany"/>
+                    <PropertyRef Name="BusinessPartnerPerson"/>
+                    <PropertyRef Name="ValidityEndDate"/>
+                </Key>
+                <Property Name="RelationshipNumber" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="UpperCase" sap:label="Broj odnosa PP"/>
+                <Property Name="BusinessPartnerCompany" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Poslovni partner" sap:quickinfo="Broj poslovnog partnera"/>
+                <Property Name="BusinessPartnerPerson" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Poslovni partner" sap:quickinfo="Broj poslovnog partnera"/>
+                <Property Name="ValidityEndDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Važi do" sap:quickinfo="Datum validnosti (važi do)"/>
+                <Property Name="ContactPersonFunction" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Funkcija" sap:quickinfo="Funkcija partnera"/>
+                <Property Name="ContactPersonDepartment" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Odeljak"/>
+                <Property Name="PhoneNumber" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Telefon" sap:quickinfo="Broj telefona: Pozivni broj+broj"/>
+                <Property Name="PhoneNumberExtension" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Lokal" sap:quickinfo="Broj telefona: Lokal"/>
+                <Property Name="FaxNumber" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Faks" sap:quickinfo="Broj faksa: Pozivni broj+broj"/>
+                <Property Name="FaxNumberExtension" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Lokal" sap:quickinfo="Broj faksa: Lokal"/>
+                <Property Name="EmailAddress" Type="Edm.String" MaxLength="241" sap:label="Adresa e-pošte"/>
+                <Property Name="RelationshipCategory" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Kategorija odnosa" sap:quickinfo="Kategorija odnosa poslovnog partnera"/>
+            </EntityType>
+            <EntityType Name="A_BuPaAddressUsageType" sap:label="Upotreba adrese poslovnog partnera" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BusinessPartner"/>
+                    <PropertyRef Name="ValidityEndDate"/>
+                    <PropertyRef Name="AddressUsage"/>
+                    <PropertyRef Name="AddressID"/>
+                </Key>
+                <Property Name="BusinessPartner" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Poslovni partner" sap:quickinfo="Broj poslovnog partnera"/>
+                <Property Name="ValidityEndDate" Type="Edm.DateTimeOffset" Nullable="false" Precision="0" sap:label="Važi do" sap:quickinfo="Završetak validnosti upotrebe adrese poslovnog partnera"/>
+                <Property Name="AddressUsage" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Tip adrese"/>
+                <Property Name="AddressID" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj adrese"/>
+                <Property Name="ValidityStartDate" Type="Edm.DateTimeOffset" Precision="0" sap:label="Važi od" sap:quickinfo="Početak validnosti upotrebe adrese poslovnog partnera"/>
+                <Property Name="StandardUsage" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Standardna upotreba" sap:quickinfo="Pokazatelj: Standardna upotreba adrese"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa ovlašćenja"/>
+            </EntityType>
+            <EntityType Name="A_BuPaIdentificationType" sap:label="Identifikacija poslovnog partnera" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BusinessPartner"/>
+                    <PropertyRef Name="BPIdentificationType"/>
+                    <PropertyRef Name="BPIdentificationNumber"/>
+                </Key>
+                <Property Name="BusinessPartner" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Poslovni partner" sap:quickinfo="Broj poslovnog partnera"/>
+                <Property Name="BPIdentificationType" Type="Edm.String" Nullable="false" MaxLength="6" sap:display-format="UpperCase" sap:label="Tip identifikacije"/>
+                <Property Name="BPIdentificationNumber" Type="Edm.String" Nullable="false" MaxLength="60" sap:display-format="UpperCase" sap:label="ID broj" sap:quickinfo="Identifikacioni broj"/>
+                <Property Name="BPIdnNmbrIssuingInstitute" Type="Edm.String" MaxLength="40" sap:label="Odgovorna instituc." sap:quickinfo="Odgovorna institucija za ID broj"/>
+                <Property Name="BPIdentificationEntryDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Datum unosa" sap:quickinfo="Datum unosa za ID broj"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Zemlja" sap:quickinfo="Zemlja u kojoj je ID broj važeći ili je dodeljen"/>
+                <Property Name="Region" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Regija" sap:quickinfo="Regija (država, pokrajina, okrug)"/>
+                <Property Name="ValidityStartDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Važi od" sap:quickinfo="Početak validnosti za ID broj"/>
+                <Property Name="ValidityEndDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Važi do" sap:quickinfo="Kraj validnosti za ID broj"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa ovlašćenja"/>
+            </EntityType>
+            <EntityType Name="A_BuPaIndustryType" sap:label="Idustrijska grana poslovnog partnera" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="IndustrySector"/>
+                    <PropertyRef Name="IndustrySystemType"/>
+                    <PropertyRef Name="BusinessPartner"/>
+                </Key>
+                <Property Name="IndustrySector" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Industrijska grana"/>
+                <Property Name="IndustrySystemType" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Industr. sistem" sap:quickinfo="Industrijski sistem"/>
+                <Property Name="BusinessPartner" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Poslovni partner" sap:quickinfo="Broj poslovnog partnera"/>
+                <Property Name="IsStandardIndustry" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Standardna ind.grana" sap:quickinfo="Industr. grana je standardna za PP u sistemu industr. grana"/>
+            </EntityType>
+            <EntityType Name="A_BusinessPartnerType" sap:label="Poslovni partner" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BusinessPartner"/>
+                </Key>
+                <Property Name="BusinessPartner" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Poslovni partner" sap:quickinfo="Broj poslovnog partnera"/>
+                <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Kupac" sap:quickinfo="Broj kupca" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Supplier" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Dobavljač" sap:quickinfo="Broj računa dobavljača ili kreditora" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="AcademicTitle" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Akademska titula 1" sap:quickinfo="Akademska titula: Ključ"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa ovlašćenja"/>
+                <Property Name="BusinessPartnerCategory" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Kategorija PP" sap:quickinfo="Kategorija poslovnog partnera"/>
+                <Property Name="BusinessPartnerFullName" Type="Edm.String" MaxLength="81" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="BusinessPartnerGrouping" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupisanje" sap:quickinfo="Grupisanje poslovnih partnera"/>
+                <Property Name="BusinessPartnerName" Type="Edm.String" MaxLength="81" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="BusinessPartnerUUID" Type="Edm.Guid" sap:label="GUID PP" sap:quickinfo="GUID poslovnog partnera" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CorrespondenceLanguage" Type="Edm.String" MaxLength="2" sap:label="Jezik korespondenc." sap:quickinfo="Poslovni partner: Jezik korespondencije"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Kreirao" sap:quickinfo="Korisnik koji je kreirao objekat" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreationDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Kreirano" sap:quickinfo="Datum kada je objekat kreiran" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreationTime" Type="Edm.Time" Precision="0" sap:label="Kreirano" sap:quickinfo="Vreme kreiranja objekta" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FirstName" Type="Edm.String" MaxLength="40" sap:label="Ime" sap:quickinfo="Ime poslovnog partnera (lice)"/>
+                <Property Name="FormOfAddress" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Titula" sap:quickinfo="Ključ načina oslovljavanja"/>
+                <Property Name="Industry" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Industrijska grana"/>
+                <Property Name="InternationalLocationNumber1" Type="Edm.String" MaxLength="7" sap:display-format="NonNegative" sap:label="Međ. broj lokacije 1" sap:quickinfo="Međunarodni broj lokacije (deo 1)"/>
+                <Property Name="InternationalLocationNumber2" Type="Edm.String" MaxLength="5" sap:display-format="NonNegative" sap:label="Međ. broj lokacije 2" sap:quickinfo="Međunarodni broj lokacije (deo 2)"/>
+                <Property Name="IsFemale" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Žensko" sap:quickinfo="Odabir: Poslovni partner je žensko"/>
+                <Property Name="IsMale" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Muško" sap:quickinfo="Odabir: Poslovni partner je muško"/>
+                <Property Name="IsNaturalPerson" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Fizičko lice" sap:quickinfo="Poslovni partner je prema poreskim zakonima fizičko lice"/>
+                <Property Name="IsSexUnknown" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Nepoznato" sap:quickinfo="Odabir: Pol poslovnog partnera nije poznat"/>
+                <Property Name="Language" Type="Edm.String" MaxLength="2" sap:label="Jezik" sap:quickinfo="Poslovni partner: Jezik"/>
+                <Property Name="LastChangeDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Promenjeno" sap:quickinfo="Datum poslednje promene objekta" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangeTime" Type="Edm.Time" Precision="0" sap:label="Promenjeno u" sap:quickinfo="Vreme kada je objekat poslednji put promenjen" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Promenio" sap:quickinfo="Korisnik koji je poslednji promenio objekat" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="LastName" Type="Edm.String" MaxLength="40" sap:label="Prezime" sap:quickinfo="Prezime poslovnog partnera (lice)"/>
+                <Property Name="LegalForm" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Zakonske forme" sap:quickinfo="PP: Zakonska forma organizacije"/>
+                <Property Name="OrganizationBPName1" Type="Edm.String" MaxLength="40" sap:label="Ime 1" sap:quickinfo="Ime 1 organizacije"/>
+                <Property Name="OrganizationBPName2" Type="Edm.String" MaxLength="40" sap:label="Ime 2" sap:quickinfo="Ime 2 organizacije"/>
+                <Property Name="OrganizationBPName3" Type="Edm.String" MaxLength="40" sap:label="Ime 3" sap:quickinfo="Ime 3 organizacije"/>
+                <Property Name="OrganizationBPName4" Type="Edm.String" MaxLength="40" sap:label="Ime 4" sap:quickinfo="Ime 4 organizacije"/>
+                <Property Name="OrganizationFoundationDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Datum osnivanja" sap:quickinfo="Datum osnivanja organizacije"/>
+                <Property Name="OrganizationLiquidationDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Datum likvidacije" sap:quickinfo="Datum likvidacije organizacije"/>
+                <Property Name="SearchTerm1" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Termin traženja 1" sap:quickinfo="Termin traženja 1 za poslovnog partnera"/>
+                <Property Name="AdditionalLastName" Type="Edm.String" MaxLength="40" sap:label="Drugo prezime" sap:quickinfo="Drugo prezime lica"/>
+                <Property Name="BirthDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Datum rođenja" sap:quickinfo="Datum rođenja poslovnog partnera"/>
+                <Property Name="BusinessPartnerIsBlocked" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Centralno blokiranje" sap:quickinfo="Centralno blokiranje za poslovnog partnera"/>
+                <Property Name="BusinessPartnerType" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Tip PP" sap:quickinfo="Tip poslovnog partnera"/>
+                <Property Name="ETag" Type="Edm.String" MaxLength="26" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="GroupBusinessPartnerName1" Type="Edm.String" MaxLength="40" sap:label="Ime 1" sap:quickinfo="Ime 1 (grupa)"/>
+                <Property Name="GroupBusinessPartnerName2" Type="Edm.String" MaxLength="40" sap:label="Ime 2" sap:quickinfo="Ime 2 (grupa)"/>
+                <Property Name="IndependentAddressID" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj adrese" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InternationalLocationNumber3" Type="Edm.String" MaxLength="1" sap:display-format="NonNegative" sap:label="Kontrolni broj" sap:quickinfo="Provera brojke za međunarodni broj lokacije"/>
+                <Property Name="MiddleName" Type="Edm.String" MaxLength="40" sap:label="Srednje ime" sap:quickinfo="Srednje ime ili drugo ime lica"/>
+                <Property Name="NameCountry" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Zemlja za format" sap:quickinfo="Zemlja za pravilo formata imena"/>
+                <Property Name="NameFormat" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Format imena"/>
+                <Property Name="PersonFullName" Type="Edm.String" MaxLength="80" sap:label="Pun naziv"/>
+                <Property Name="PersonNumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj lica" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsMarkedForArchiving" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Ozn. za arhiviranje" sap:quickinfo="Centralna oznaka za arhiviranje"/>
+                <Property Name="BusinessPartnerIDByExtSystem" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Eksterni broj PP" sap:quickinfo="Broj poslovnog partnera u eksternom sistemu"/>
+                <Property Name="TradingPartner" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Broj trgov.partnera" sap:quickinfo="ID kompanije trgovačkog partnera"/>
+                <NavigationProperty Name="to_BuPaIdentification" Relationship="API_BUSINESS_PARTNER.assoc_07A4C6774A79F32D8C1BDA1CBE5A2FA7" FromRole="FromRole_assoc_07A4C6774A79F32D8C1BDA1CBE5A2FA7" ToRole="ToRole_assoc_07A4C6774A79F32D8C1BDA1CBE5A2FA7"/>
+                <NavigationProperty Name="to_BuPaIndustry" Relationship="API_BUSINESS_PARTNER.assoc_91BCE13588BD3046353CD68D3098C2E5" FromRole="FromRole_assoc_91BCE13588BD3046353CD68D3098C2E5" ToRole="ToRole_assoc_91BCE13588BD3046353CD68D3098C2E5"/>
+                <NavigationProperty Name="to_BusinessPartnerAddress" Relationship="API_BUSINESS_PARTNER.assoc_6247ED959B75350E6EA6CEDD2CBEC7E7" FromRole="FromRole_assoc_6247ED959B75350E6EA6CEDD2CBEC7E7" ToRole="ToRole_assoc_6247ED959B75350E6EA6CEDD2CBEC7E7"/>
+                <NavigationProperty Name="to_BusinessPartnerBank" Relationship="API_BUSINESS_PARTNER.assoc_05F0DA10FFAB2836605571E5ABB6E5B9" FromRole="FromRole_assoc_05F0DA10FFAB2836605571E5ABB6E5B9" ToRole="ToRole_assoc_05F0DA10FFAB2836605571E5ABB6E5B9"/>
+                <NavigationProperty Name="to_BusinessPartnerContact" Relationship="API_BUSINESS_PARTNER.assoc_02AC1AF45478434AAB93B18ECA2FB863" FromRole="FromRole_assoc_02AC1AF45478434AAB93B18ECA2FB863" ToRole="ToRole_assoc_02AC1AF45478434AAB93B18ECA2FB863"/>
+                <NavigationProperty Name="to_BusinessPartnerRole" Relationship="API_BUSINESS_PARTNER.assoc_FB863C7C69262D926CE14CA6A50667DB" FromRole="FromRole_assoc_FB863C7C69262D926CE14CA6A50667DB" ToRole="ToRole_assoc_FB863C7C69262D926CE14CA6A50667DB"/>
+                <NavigationProperty Name="to_BusinessPartnerTax" Relationship="API_BUSINESS_PARTNER.assoc_DADC7016DBB892642F90D68E0E47B6E8" FromRole="FromRole_assoc_DADC7016DBB892642F90D68E0E47B6E8" ToRole="ToRole_assoc_DADC7016DBB892642F90D68E0E47B6E8"/>
+                <NavigationProperty Name="to_Customer" Relationship="API_BUSINESS_PARTNER.assoc_80838433DCE8E16AA7C9031C32896631" FromRole="FromRole_assoc_80838433DCE8E16AA7C9031C32896631" ToRole="ToRole_assoc_80838433DCE8E16AA7C9031C32896631"/>
+                <NavigationProperty Name="to_Supplier" Relationship="API_BUSINESS_PARTNER.assoc_7256A9801E68AE14E59054C2738099F1" FromRole="FromRole_assoc_7256A9801E68AE14E59054C2738099F1" ToRole="ToRole_assoc_7256A9801E68AE14E59054C2738099F1"/>
+            </EntityType>
+            <EntityType Name="A_BusinessPartnerAddressType" sap:label="Adresa poslovnog partnera" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BusinessPartner"/>
+                    <PropertyRef Name="AddressID"/>
+                </Key>
+                <Property Name="BusinessPartner" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Poslovni partner" sap:quickinfo="Broj poslovnog partnera"/>
+                <Property Name="AddressID" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj adrese"/>
+                <Property Name="ValidityStartDate" Type="Edm.DateTimeOffset" Precision="0" sap:label="Važi od" sap:quickinfo="Početak validnosti adrese poslovnog partnera"/>
+                <Property Name="ValidityEndDate" Type="Edm.DateTimeOffset" Precision="0" sap:label="Važi do" sap:quickinfo="Završetak validnosti adrese poslovnog partnera"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa ovlašćenja"/>
+                <Property Name="AddressUUID" Type="Edm.Guid" sap:label="" sap:quickinfo="GUID adrese poslovnog partnera" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="AdditionalStreetPrefixName" Type="Edm.String" MaxLength="40" sap:label="Ulica 3"/>
+                <Property Name="AdditionalStreetSuffixName" Type="Edm.String" MaxLength="40" sap:label="Ulica 5"/>
+                <Property Name="AddressTimeZone" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Vremenska zona" sap:quickinfo="Vremenska zona adrese"/>
+                <Property Name="CareOfName" Type="Edm.String" MaxLength="40" sap:label="c/o" sap:quickinfo="c/o ime"/>
+                <Property Name="CityCode" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Šifra grada" sap:quickinfo="Šifra grada za fajl grada/ulice"/>
+                <Property Name="CityName" Type="Edm.String" MaxLength="40" sap:label="Grad"/>
+                <Property Name="CompanyPostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Pošt.broj kompanije" sap:quickinfo="Poštanski broj kompanije (za velike kupce)"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Ključ zemlje"/>
+                <Property Name="County" Type="Edm.String" MaxLength="40" sap:label="Okrug"/>
+                <Property Name="DeliveryServiceNumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj usluge isporuke"/>
+                <Property Name="DeliveryServiceTypeCode" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Tip usl.isporuke" sap:quickinfo="Tip usluge isporuke"/>
+                <Property Name="District" Type="Edm.String" MaxLength="40" sap:label="Oblast"/>
+                <Property Name="FormOfAddress" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Titula" sap:quickinfo="Ključ načina oslovljavanja" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FullName" Type="Edm.String" MaxLength="80" sap:label="Puno ime" sap:quickinfo="Puno ime strane (posl.partner, org.jedinica, adresa dok.)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="HomeCityName" Type="Edm.String" MaxLength="40" sap:label="Drugi grad" sap:quickinfo="Grad (različito od poštanskog grada)"/>
+                <Property Name="HouseNumber" Type="Edm.String" MaxLength="10" sap:label="Kućni broj"/>
+                <Property Name="HouseNumberSupplementText" Type="Edm.String" MaxLength="10" sap:label="Dodatak" sap:quickinfo="Dodatak kućnom broju"/>
+                <Property Name="Language" Type="Edm.String" MaxLength="2" sap:label="Ključ jezika"/>
+                <Property Name="POBox" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Poštanski fah"/>
+                <Property Name="POBoxDeviatingCityName" Type="Edm.String" MaxLength="40" sap:label="Poštanski fah - grad" sap:quickinfo="Poštanski fah grada"/>
+                <Property Name="POBoxDeviatingCountry" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Zemlja poštans.faha" sap:quickinfo="Zemlja poštanskog faha"/>
+                <Property Name="POBoxDeviatingRegion" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Poštanski fah regije" sap:quickinfo="Regija za poštanski fah (zemlja, država, provinc., ."/>
+                <Property Name="POBoxIsWithoutNumber" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Poš.fah bez br." sap:quickinfo="Oznaka: Poštanski fah bez broja"/>
+                <Property Name="POBoxLobbyName" Type="Edm.String" MaxLength="40" sap:label="Stanica pošt.faha" sap:quickinfo="Stanica poštanskog faha"/>
+                <Property Name="POBoxPostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Pošt.broj pošt.faha" sap:quickinfo="Poštanski broj poštanskog faha"/>
+                <Property Name="Person" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Broj lica" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PostalCode" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Poštanski broj" sap:quickinfo="Poštanski broj grada"/>
+                <Property Name="PrfrdCommMediumType" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Metod komunikac." sap:quickinfo="Metod komunikacije (ključ) (centr.upravljanje adresama)"/>
+                <Property Name="Region" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Regija" sap:quickinfo="Regija (država, pokrajina, okrug)"/>
+                <Property Name="StreetName" Type="Edm.String" MaxLength="60" sap:label="Ulica"/>
+                <Property Name="StreetPrefixName" Type="Edm.String" MaxLength="40" sap:label="Ulica 2"/>
+                <Property Name="StreetSuffixName" Type="Edm.String" MaxLength="40" sap:label="Ulica 4"/>
+                <Property Name="TaxJurisdiction" Type="Edm.String" MaxLength="15" sap:display-format="UpperCase" sap:label="Poreska nadležnost"/>
+                <Property Name="TransportZone" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Transportna zona" sap:quickinfo="Transportna zona do ili od koje se isporučuje roba"/>
+                <Property Name="AddressIDByExternalSystem" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Eksterni broj adrese" sap:quickinfo="Broj adrese u eksternom sistemu"/>
+                <NavigationProperty Name="to_AddressUsage" Relationship="API_BUSINESS_PARTNER.assoc_091DBA85F5FE3E747FC3884B40B4EBFD" FromRole="FromRole_assoc_091DBA85F5FE3E747FC3884B40B4EBFD" ToRole="ToRole_assoc_091DBA85F5FE3E747FC3884B40B4EBFD"/>
+                <NavigationProperty Name="to_EmailAddress" Relationship="API_BUSINESS_PARTNER.assoc_B21DC96A1904D36E94FBE84771BD7E99" FromRole="FromRole_assoc_B21DC96A1904D36E94FBE84771BD7E99" ToRole="ToRole_assoc_B21DC96A1904D36E94FBE84771BD7E99"/>
+                <NavigationProperty Name="to_FaxNumber" Relationship="API_BUSINESS_PARTNER.assoc_43B546339886BBB6ED35EA7CA84FB32B" FromRole="FromRole_assoc_43B546339886BBB6ED35EA7CA84FB32B" ToRole="ToRole_assoc_43B546339886BBB6ED35EA7CA84FB32B"/>
+                <NavigationProperty Name="to_MobilePhoneNumber" Relationship="API_BUSINESS_PARTNER.assoc_60DDA2597182EA56C114908472D2FB81" FromRole="FromRole_assoc_60DDA2597182EA56C114908472D2FB81" ToRole="ToRole_assoc_60DDA2597182EA56C114908472D2FB81"/>
+                <NavigationProperty Name="to_PhoneNumber" Relationship="API_BUSINESS_PARTNER.assoc_35D5A40C930BECE699C4526B1B1F8D1C" FromRole="FromRole_assoc_35D5A40C930BECE699C4526B1B1F8D1C" ToRole="ToRole_assoc_35D5A40C930BECE699C4526B1B1F8D1C"/>
+                <NavigationProperty Name="to_URLAddress" Relationship="API_BUSINESS_PARTNER.assoc_24C290CBC7FE69574AD9D79A5C631212" FromRole="FromRole_assoc_24C290CBC7FE69574AD9D79A5C631212" ToRole="ToRole_assoc_24C290CBC7FE69574AD9D79A5C631212"/>
+            </EntityType>
+            <EntityType Name="A_BusinessPartnerBankType" sap:label="Banka poslovnog partnera" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BusinessPartner"/>
+                    <PropertyRef Name="BankIdentification"/>
+                </Key>
+                <Property Name="BusinessPartner" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Poslovni partner" sap:quickinfo="Broj poslovnog partnera"/>
+                <Property Name="BankIdentification" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="ID pod. banke"/>
+                <Property Name="BankCountryKey" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Zemlja banke" sap:quickinfo="Ključ zemlje banke"/>
+                <Property Name="BankName" Type="Edm.String" MaxLength="60" sap:label="Ime banke" sap:quickinfo="Naziv banke" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="BankNumber" Type="Edm.String" MaxLength="15" sap:display-format="UpperCase" sap:label="Ključ banke"/>
+                <Property Name="SWIFTCode" Type="Edm.String" MaxLength="11" sap:display-format="UpperCase" sap:label="SWIFT/BIC" sap:quickinfo="SWIFT/BIC za međunarodna plaćanja" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="BankControlKey" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Ključ kontrole banke"/>
+                <Property Name="BankAccountHolderName" Type="Edm.String" MaxLength="60" sap:label="Vlasnik računa" sap:quickinfo="Ime vlasnika računa"/>
+                <Property Name="BankAccountName" Type="Edm.String" MaxLength="40" sap:label="Ime računa" sap:quickinfo="Ime bankovnog računa"/>
+                <Property Name="ValidityStartDate" Type="Edm.DateTimeOffset" Precision="0" sap:label="Važi od" sap:quickinfo="Početak validnosti podataka banke poslovnog partnera"/>
+                <Property Name="ValidityEndDate" Type="Edm.DateTimeOffset" Precision="0" sap:label="Važi do" sap:quickinfo="Završetak validnosti podataka banke poslovnog partnera"/>
+                <Property Name="IBAN" Type="Edm.String" MaxLength="34" sap:display-format="UpperCase" sap:label="IBAN" sap:quickinfo="IBAN (međunarodni broj bankovnog računa)"/>
+                <Property Name="IBANValidityStartDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="IBAN važi od" sap:quickinfo="Početak validnosti IBAN-a"/>
+                <Property Name="BankAccount" Type="Edm.String" MaxLength="18" sap:display-format="UpperCase" sap:label="Bankovni račun" sap:quickinfo="Broj bankovnog računa"/>
+                <Property Name="BankAccountReferenceText" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Referentni detalji" sap:quickinfo="Referentni detalji za podatke banke"/>
+                <Property Name="CollectionAuthInd" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Ovl. za naplatu" sap:quickinfo="Pokazatelj: Ovlašćenje za naplatu"/>
+                <Property Name="CityName" Type="Edm.String" MaxLength="35" sap:label="Grad" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa ovlašćenja"/>
+            </EntityType>
+            <EntityType Name="A_BusinessPartnerContactType" sap:label="Kontakt poslovnog partnera" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="RelationshipNumber"/>
+                    <PropertyRef Name="BusinessPartnerCompany"/>
+                    <PropertyRef Name="BusinessPartnerPerson"/>
+                    <PropertyRef Name="ValidityEndDate"/>
+                </Key>
+                <Property Name="RelationshipNumber" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="UpperCase" sap:label="Broj odnosa PP"/>
+                <Property Name="BusinessPartnerCompany" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Poslovni partner" sap:quickinfo="Broj poslovnog partnera"/>
+                <Property Name="BusinessPartnerPerson" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Poslovni partner" sap:quickinfo="Broj poslovnog partnera"/>
+                <Property Name="ValidityEndDate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Važi do" sap:quickinfo="Datum validnosti (važi do)"/>
+                <Property Name="ValidityStartDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Važi od" sap:quickinfo="Datum validnosti (važi od)"/>
+                <Property Name="IsStandardRelationship" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Standard" sap:quickinfo="Standardni odnos"/>
+                <Property Name="RelationshipCategory" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Kategorija odnosa" sap:quickinfo="Kategorija odnosa poslovnog partnera"/>
+                <NavigationProperty Name="to_ContactAddress" Relationship="API_BUSINESS_PARTNER.assoc_68C6FA4D5F974F8BBFCA5D234FA05107" FromRole="FromRole_assoc_68C6FA4D5F974F8BBFCA5D234FA05107" ToRole="ToRole_assoc_68C6FA4D5F974F8BBFCA5D234FA05107"/>
+                <NavigationProperty Name="to_ContactRelationship" Relationship="API_BUSINESS_PARTNER.assoc_ABC4A572A4A8802D97BA70498CCE4A4E" FromRole="FromRole_assoc_ABC4A572A4A8802D97BA70498CCE4A4E" ToRole="ToRole_assoc_ABC4A572A4A8802D97BA70498CCE4A4E"/>
+            </EntityType>
+            <EntityType Name="A_BusinessPartnerRoleType" sap:label="Uloga poslovnog partnera" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BusinessPartner"/>
+                    <PropertyRef Name="BusinessPartnerRole"/>
+                </Key>
+                <Property Name="BusinessPartner" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Poslovni partner" sap:quickinfo="Broj poslovnog partnera"/>
+                <Property Name="BusinessPartnerRole" Type="Edm.String" Nullable="false" MaxLength="6" sap:display-format="UpperCase" sap:label="Uloga PP" sap:quickinfo="Uloga poslovnog partnera"/>
+                <Property Name="ValidFrom" Type="Edm.DateTimeOffset" Precision="0" sap:label="Važi od" sap:quickinfo="Početak validnosti uloge poslovnog partnera"/>
+                <Property Name="ValidTo" Type="Edm.DateTimeOffset" Precision="0" sap:label="Važi do" sap:quickinfo="Završetak validnosti uloge poslovnog partnera"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa ovlašćenja"/>
+            </EntityType>
+            <EntityType Name="A_BusinessPartnerTaxNumberType" sap:label="Poreski broj poslovnog partnera" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BusinessPartner"/>
+                    <PropertyRef Name="BPTaxType"/>
+                </Key>
+                <Property Name="BusinessPartner" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Poslovni partner" sap:quickinfo="Broj poslovnog partnera"/>
+                <Property Name="BPTaxType" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Kateg.poreskog broja" sap:quickinfo="Kategorija poreskog broja"/>
+                <Property Name="BPTaxNumber" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Poreski broj" sap:quickinfo="Poreski broj poslovnog partnera"/>
+                <Property Name="BPTaxLongNumber" Type="Edm.String" MaxLength="60" sap:display-format="UpperCase" sap:label="Poreski broj" sap:quickinfo="Poreski broj poslovnog partnera"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa ovlašćenja"/>
+            </EntityType>
+            <EntityType Name="A_CustomerType" sap:label="Kupac" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Customer"/>
+                </Key>
+                <Property Name="Customer" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Kupac" sap:quickinfo="Broj kupca"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Ovlašćenje" sap:quickinfo="Grupa ovlašćenja"/>
+                <Property Name="BillingIsBlockedForCustomer" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Blokir.faktur." sap:quickinfo="Centralna blokada fakturisanja za kupca"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Kreirao" sap:quickinfo="Ime osobe koja je kreirala objekat" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreationDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Kreirano" sap:quickinfo="Datum kada je zapis kreiran" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CustomerAccountGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa računa" sap:quickinfo="Grupa računa kupca"/>
+                <Property Name="CustomerClassification" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Klasifikacija kupaca"/>
+                <Property Name="CustomerFullName" Type="Edm.String" MaxLength="220" sap:display-format="UpperCase" sap:label="Naziv kupca" sap:quickinfo="Pun naziv kupca" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CustomerName" Type="Edm.String" MaxLength="80" sap:label="Naziv kupca" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DeliveryIsBlocked" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Blokir.isporuke" sap:quickinfo="Centralno blokiranje isporuke za kupca"/>
+                <Property Name="NFPartnerIsNaturalPerson" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Fizičko lice"/>
+                <Property Name="OrderIsBlockedForCustomer" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Blokir. naloga" sap:quickinfo="Centralna blokada naloga za kupca"/>
+                <Property Name="PostingIsBlocked" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Blok. knjiženja" sap:quickinfo="Centralno blokiranje knjiženja"/>
+                <Property Name="Supplier" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Dobavljač" sap:quickinfo="Broj računa dobavljača ili kreditora"/>
+                <Property Name="CustomerCorporateGroup" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Ključ grupe"/>
+                <Property Name="FiscalAddress" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Fiskalna adresa" sap:quickinfo="Broj računa matičnog zapisa sa fiskalnom adresom"/>
+                <Property Name="Industry" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Industrijska grana" sap:quickinfo="Ključ industrije" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IndustryCode1" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Šifra industrije 1" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IndustryCode2" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Šifra industrije 2" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IndustryCode3" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Šifra industrije 3" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IndustryCode4" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Šifra industrije 4" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IndustryCode5" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Šifra industrije 5" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InternationalLocationNumber1" Type="Edm.String" MaxLength="7" sap:display-format="NonNegative" sap:label="Međ. broj lokacije 1" sap:quickinfo="Međunarodni broj lokacije (deo 1)"/>
+                <Property Name="NielsenRegion" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Nielsen pokazatelj" sap:quickinfo="Nielsen ID"/>
+                <Property Name="ResponsibleType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Tip poreza"/>
+                <Property Name="TaxNumber1" Type="Edm.String" MaxLength="16" sap:display-format="UpperCase" sap:label="Poreski broj 1" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TaxNumber2" Type="Edm.String" MaxLength="11" sap:display-format="UpperCase" sap:label="Poreski broj 2" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TaxNumber3" Type="Edm.String" MaxLength="18" sap:display-format="UpperCase" sap:label="Poreski broj 3" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TaxNumber4" Type="Edm.String" MaxLength="18" sap:display-format="UpperCase" sap:label="Poreski broj 4" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TaxNumber5" Type="Edm.String" MaxLength="60" sap:display-format="UpperCase" sap:label="Poreski broj 5" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TaxNumberType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Tip poresk.broja" sap:quickinfo="Tip poreskog broja"/>
+                <Property Name="VATRegistration" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="PDV registr. broj" sap:quickinfo="Porez na dodatu vrednost - registarski broj"/>
+                <Property Name="DeletionIndicator" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Oznaka za bris." sap:quickinfo="Centralna oznaka za brisanje za matični zapis"/>
+                <NavigationProperty Name="to_CustomerCompany" Relationship="API_BUSINESS_PARTNER.assoc_BB9464C0EE976A75A05F937B73A26763" FromRole="FromRole_assoc_BB9464C0EE976A75A05F937B73A26763" ToRole="ToRole_assoc_BB9464C0EE976A75A05F937B73A26763"/>
+                <NavigationProperty Name="to_CustomerSalesArea" Relationship="API_BUSINESS_PARTNER.assoc_70A8B5CCADF265E097DC86BC7B699B31" FromRole="FromRole_assoc_70A8B5CCADF265E097DC86BC7B699B31" ToRole="ToRole_assoc_70A8B5CCADF265E097DC86BC7B699B31"/>
+            </EntityType>
+            <EntityType Name="A_CustomerCompanyType" sap:label="Kompanija kupca" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Customer"/>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="Customer" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Kupac" sap:quickinfo="Broj kupca"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Šifra kompanije"/>
+                <Property Name="APARToleranceGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa dopušt.odstup." sap:quickinfo="Grupa dopuštenog odstupanja za poslovnog partnera/račun GK"/>
+                <Property Name="AccountByCustomer" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Račun kod kupca" sap:quickinfo="Naš broj računa kod kupca"/>
+                <Property Name="AccountingClerk" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="SkraćZaRačun" sap:quickinfo="Skraćenica za računovođu"/>
+                <Property Name="AccountingClerkFaxNumber" Type="Edm.String" MaxLength="31" sap:label="Faks računovođe" sap:quickinfo="Broj faksa računovođe kod poslovnog partnera"/>
+                <Property Name="AccountingClerkInternetAddress" Type="Edm.String" MaxLength="130" sap:label="Interner adr. refer." sap:quickinfo="Internet adresa referenta u partnerskoj kompaniji"/>
+                <Property Name="AccountingClerkPhoneNumber" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Br. tel. računovođe" sap:quickinfo="Broj telefona računovođe kod poslovnog partnera"/>
+                <Property Name="AlternativePayerAccount" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Alternat. platilac" sap:quickinfo="Broj računa alternativnog platioca"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Ovlašćenje" sap:quickinfo="Grupa ovlašćenja"/>
+                <Property Name="CollectiveInvoiceVariant" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Varij.zajedn.fakture" sap:quickinfo="Varijanta zajedničke fakture"/>
+                <Property Name="CustomerAccountNote" Type="Edm.String" MaxLength="30" sap:label="Beleška o računu" sap:quickinfo="Beleške"/>
+                <Property Name="CustomerHeadOffice" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Glavna kancelarija" sap:quickinfo="Broj računa glavne kancelarije (u računima filijale)"/>
+                <Property Name="CustomerSupplierClearingIsUsed" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Kliring s dobavljač." sap:quickinfo="Pokazatelj: Kliring između kupca i dobavljača ?"/>
+                <Property Name="HouseBank" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Domaća banka" sap:quickinfo="Kratki ključ za domaću banku"/>
+                <Property Name="InterestCalculationCode" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Pokazatelj kamate" sap:quickinfo="Pokazatelj izračunavanja kamate"/>
+                <Property Name="InterestCalculationDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Posl.ključ.dat." sap:quickinfo="Ključni datum poslednjeg izračunavanja kamate"/>
+                <Property Name="IntrstCalcFrequencyInMonths" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="UčestIzračKam" sap:quickinfo="Učestalost izračunavanja kamate u mesecima"/>
+                <Property Name="IsToBeLocallyProcessed" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Lokalna obrada" sap:quickinfo="Pokazatelj: Lokalna obrada?"/>
+                <Property Name="ItemIsToBePaidSeparately" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Pojedinačno plaćanje" sap:quickinfo="Pokazatelj: Plati sve stavke posebno ?"/>
+                <Property Name="LayoutSortingRule" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Ključ ređanja" sap:quickinfo="Ključ za ređanje po brojevima dodele"/>
+                <Property Name="PaymentBlockingReason" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Blokada plaćanja" sap:quickinfo="Ključ blokiranja za plaćanje"/>
+                <Property Name="PaymentMethodsList" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Metodi plaćanja" sap:quickinfo="Lista načina plaćanja koji se uzimaju u obzir"/>
+                <Property Name="PaymentTerms" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Uslovi plaćanja" sap:quickinfo="Ključ uslova plaćanja"/>
+                <Property Name="PaytAdviceIsSentbyEDI" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Obav.o plać.po EDI" sap:quickinfo="Pokazatelj: Pošalji obaveštenja o plaćanju po EDI"/>
+                <Property Name="PhysicalInventoryBlockInd" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Bl.knj. za šif.komp." sap:quickinfo="Blokiranje knjiženja za šifru kompanije"/>
+                <Property Name="ReconciliationAccount" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Račun usklađivanja" sap:quickinfo="Račun usklađivanja u glavnoj knjizi"/>
+                <Property Name="RecordPaymentHistoryIndicator" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Bel.istor.plaćanja" sap:quickinfo="Pokazatelj: Beležiti istoriju plaćanja ?"/>
+                <Property Name="UserAtCustomer" Type="Edm.String" MaxLength="15" sap:label="Korisnik kod kupca"/>
+                <Property Name="DeletionIndicator" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Ozn.bris. šif.komp." sap:quickinfo="Oznaka za brisanje za matični zapis (nivo šifre kompanije)"/>
+                <Property Name="CustomerAccountGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa računa" sap:quickinfo="Grupa računa kupca"/>
+                <NavigationProperty Name="to_CustomerDunning" Relationship="API_BUSINESS_PARTNER.assoc_8273BE5CD7CC24B836264946436461DA" FromRole="FromRole_assoc_8273BE5CD7CC24B836264946436461DA" ToRole="ToRole_assoc_8273BE5CD7CC24B836264946436461DA"/>
+                <NavigationProperty Name="to_WithHoldingTax" Relationship="API_BUSINESS_PARTNER.assoc_65B2B550EF37ECC341EC132360E3D0A8" FromRole="FromRole_assoc_65B2B550EF37ECC341EC132360E3D0A8" ToRole="ToRole_assoc_65B2B550EF37ECC341EC132360E3D0A8"/>
+            </EntityType>
+            <EntityType Name="A_CustomerDunningType" sap:label="Opominjanje kompanije kupca" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Customer"/>
+                    <PropertyRef Name="CompanyCode"/>
+                    <PropertyRef Name="DunningArea"/>
+                </Key>
+                <Property Name="Customer" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Kupac" sap:quickinfo="Broj kupca"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Šifra kompanije"/>
+                <Property Name="DunningArea" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Oblast opominjanja"/>
+                <Property Name="DunningBlock" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Blokada opom." sap:quickinfo="Blokada opominjanja"/>
+                <Property Name="DunningLevel" Type="Edm.String" MaxLength="1" sap:display-format="NonNegative" sap:label="Nivo opominjanja"/>
+                <Property Name="DunningProcedure" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Postupak opominjanja"/>
+                <Property Name="DunningRecipient" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Primalac opominjanja" sap:quickinfo="Broj računa primaoca opominjanja"/>
+                <Property Name="LastDunnedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Poslednje opom." sap:quickinfo="Datum poslednje opomene"/>
+                <Property Name="LegDunningProcedureOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Pravni post.opom.od" sap:quickinfo="Datum pravnih postupaka opominjanja"/>
+                <Property Name="DunningClerk" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Račun.za opominjanje" sap:quickinfo="Računovođa za opominjanje"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Ovlašćenje" sap:quickinfo="Grupa ovlašćenja"/>
+                <Property Name="CustomerAccountGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa računa" sap:quickinfo="Grupa računa kupca"/>
+            </EntityType>
+            <EntityType Name="A_CustomerSalesAreaType" sap:label="Oblast prodaje kupca" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Customer"/>
+                    <PropertyRef Name="SalesOrganization"/>
+                    <PropertyRef Name="DistributionChannel"/>
+                    <PropertyRef Name="Division"/>
+                </Key>
+                <Property Name="Customer" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Kupac" sap:quickinfo="Broj kupca"/>
+                <Property Name="SalesOrganization" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Organizacija prodaje"/>
+                <Property Name="DistributionChannel" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Distribucioni kanal"/>
+                <Property Name="Division" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Odeljak"/>
+                <Property Name="AccountByCustomer" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Račun kod kupca" sap:quickinfo="Naš broj računa kod kupca ili dobavljača"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa ovlašćenja"/>
+                <Property Name="BillingIsBlockedForCustomer" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Blok.fakt.za OP" sap:quickinfo="Blokiranje fakturisanja za kupca (prodaja i distribucija)"/>
+                <Property Name="CompleteDeliveryIsDefined" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Potpuna isporuka" sap:quickinfo="Završiti isporuku definisanu za svaki prodajni naloog?"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:label="Valuta" sap:semantics="currency-code"/>
+                <Property Name="CustomerABCClassification" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="ABC klasifikacija" sap:quickinfo="Klasifikacija kupca (ABC analiza)"/>
+                <Property Name="CustomerAccountAssignmentGroup" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="GrDodRač za kupca" sap:quickinfo="Grupa dodele računa za ovog kupca"/>
+                <Property Name="CustomerGroup" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Grupa kupaca"/>
+                <Property Name="CustomerPaymentTerms" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Uslovi plaćanja" sap:quickinfo="Ključ uslova plaćanja"/>
+                <Property Name="CustomerPriceGroup" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Grupa cena kupca"/>
+                <Property Name="CustomerPricingProcedure" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Postup.odr.cene kup." sap:quickinfo="Klasifikacija kupaca za određiv.postupka određivanja cena"/>
+                <Property Name="DeliveryIsBlockedForCustomer" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="BlokIspProdObl" sap:quickinfo="Blokir. isporuke kupca (prodajna oblast)"/>
+                <Property Name="DeliveryPriority" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="Prioritet isporuke"/>
+                <Property Name="IncotermsClassification" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Incoterm" sap:quickinfo="Incoterms (deo 1)"/>
+                <Property Name="IncotermsLocation2" Type="Edm.String" MaxLength="70" sap:label="Incoterms lokacija 2"/>
+                <Property Name="IncotermsVersion" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Incoterms verzija"/>
+                <Property Name="IncotermsLocation1" Type="Edm.String" MaxLength="70" sap:label="Incoterms lokacija 1"/>
+                <Property Name="DeletionIndicator" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="ID bris.obl.pr." sap:quickinfo="Oznaka za brisanje za kupca (nivo prodaje)"/>
+                <Property Name="IncotermsTransferLocation" Type="Edm.String" MaxLength="28" sap:label="Incoterms (deo 2)"/>
+                <Property Name="InvoiceDate" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Datumi fakturisanja" sap:quickinfo="Datumi fakture (identifikacija kalendara)"/>
+                <Property Name="ItemOrderProbabilityInPercent" Type="Edm.String" MaxLength="3" sap:display-format="NonNegative" sap:label="Verovatnoća naloga" sap:quickinfo="Verovatnoća naloga pozicije"/>
+                <Property Name="OrderCombinationIsAllowed" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Kombinacija naloga" sap:quickinfo="Pokazatelj kombinacija naloga"/>
+                <Property Name="OrderIsBlockedForCustomer" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Bl.nal.:Pr.obl." sap:quickinfo="Blokiranje naloga kupca (prodajna oblast)"/>
+                <Property Name="PartialDeliveryIsAllowed" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Del.isp./stavka" sap:quickinfo="Delimična isporuka na nivou stavke"/>
+                <Property Name="PriceListType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Tip cenovnika"/>
+                <Property Name="SalesGroup" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Prodajna grupa"/>
+                <Property Name="SalesOffice" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Prodaja"/>
+                <Property Name="ShippingCondition" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Uslovi otpreme"/>
+                <Property Name="SupplyingPlant" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Pogon isporučilac" sap:quickinfo="Pogon isporučilac (sopstveni ili eksterni)"/>
+                <Property Name="SalesDistrict" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Oblast prodaje"/>
+                <Property Name="CustomerAccountGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa računa" sap:quickinfo="Grupa računa kupca"/>
+                <NavigationProperty Name="to_PartnerFunction" Relationship="API_BUSINESS_PARTNER.assoc_3747E462BFFBB3127682A67959ECC8AA" FromRole="FromRole_assoc_3747E462BFFBB3127682A67959ECC8AA" ToRole="ToRole_assoc_3747E462BFFBB3127682A67959ECC8AA"/>
+                <NavigationProperty Name="to_SalesAreaTax" Relationship="API_BUSINESS_PARTNER.assoc_49CF1243367384CB6C19B5648CA1F817" FromRole="FromRole_assoc_49CF1243367384CB6C19B5648CA1F817" ToRole="ToRole_assoc_49CF1243367384CB6C19B5648CA1F817"/>
+            </EntityType>
+            <EntityType Name="A_CustomerSalesAreaTaxType" sap:label="Porez oblasti prodaje kupca" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Customer"/>
+                    <PropertyRef Name="SalesOrganization"/>
+                    <PropertyRef Name="DistributionChannel"/>
+                    <PropertyRef Name="Division"/>
+                    <PropertyRef Name="DepartureCountry"/>
+                    <PropertyRef Name="CustomerTaxCategory"/>
+                </Key>
+                <Property Name="Customer" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Kupac" sap:quickinfo="Broj kupca"/>
+                <Property Name="SalesOrganization" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Organizacija prodaje"/>
+                <Property Name="DistributionChannel" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="RefDistK-kupac/mat." sap:quickinfo="Referentni distrib. kanal za kupca i liste materijala"/>
+                <Property Name="Division" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Odeljak"/>
+                <Property Name="DepartureCountry" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="Zemlja" sap:quickinfo="Zemlja odlaska (zemlja iz koje je roba poslata)"/>
+                <Property Name="CustomerTaxCategory" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Kategorija poreza" sap:quickinfo="Kategorija poreza (por.na promet,savezvi por.na promet,...)"/>
+                <Property Name="CustomerTaxClassification" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Klasifikacija poreza" sap:quickinfo="Klasifikacija poreza za kupca"/>
+            </EntityType>
+            <EntityType Name="A_CustomerWithHoldingTaxType" sap:label="Porez po odbitku kupca" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Customer"/>
+                    <PropertyRef Name="CompanyCode"/>
+                    <PropertyRef Name="WithholdingTaxType"/>
+                </Key>
+                <Property Name="Customer" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Kupac" sap:quickinfo="Broj kupca"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Šifra kompanije"/>
+                <Property Name="WithholdingTaxType" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Tip zadržanog poreza" sap:quickinfo="Pokazatelj tipa zadržanog poreza"/>
+                <Property Name="WithholdingTaxCode" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Šifra zadr.por." sap:quickinfo="Šifra poreza na izvoru"/>
+                <Property Name="WithholdingTaxAgent" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Agent zadrž.por." sap:quickinfo="Pokazatelj: Agent zadržavanja poreza?"/>
+                <Property Name="ObligationDateBegin" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Obav.da zadrž.por.od" sap:quickinfo="Obavezan da zadrži porez od"/>
+                <Property Name="ObligationDateEnd" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Obavez.da zadr.po.do" sap:quickinfo="Obavezan da zadrži porez do"/>
+                <Property Name="WithholdingTaxNumber" Type="Edm.String" MaxLength="16" sap:display-format="UpperCase" sap:label="Br.por.na izv." sap:quickinfo="Identifikacioni broj poreza na izvoru"/>
+                <Property Name="WithholdingTaxCertificate" Type="Edm.String" MaxLength="25" sap:display-format="UpperCase" sap:label="Broj izuzimanja" sap:quickinfo="Broj sertifikata izuzimanja"/>
+                <Property Name="WithholdingTaxExmptPercent" Type="Edm.Decimal" Precision="5" Scale="2" sap:label="Stopa izuzimanja"/>
+                <Property Name="ExemptionDateBegin" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Datum poč.izuzimanja" sap:quickinfo="Datum kada izuzimanje počinje"/>
+                <Property Name="ExemptionDateEnd" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Datum zav.izuzimanja" sap:quickinfo="Datum kada izuzimanje završava"/>
+                <Property Name="ExemptionReason" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Razlog izuzimanja" sap:quickinfo="Razlog za izuzimanje"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Ovlašćenje" sap:quickinfo="Grupa ovlašćenja"/>
+            </EntityType>
+            <EntityType Name="A_CustSalesPartnerFuncType" sap:label="Funkcija partnera oblasti prodaje kupca" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Customer"/>
+                    <PropertyRef Name="SalesOrganization"/>
+                    <PropertyRef Name="DistributionChannel"/>
+                    <PropertyRef Name="Division"/>
+                    <PropertyRef Name="PartnerCounter"/>
+                    <PropertyRef Name="PartnerFunction"/>
+                </Key>
+                <Property Name="Customer" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Kupac" sap:quickinfo="Broj kupca"/>
+                <Property Name="SalesOrganization" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Organizacija prodaje"/>
+                <Property Name="DistributionChannel" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Distribucioni kanal"/>
+                <Property Name="Division" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Odeljak"/>
+                <Property Name="PartnerCounter" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="NonNegative" sap:label="Brojač partnera"/>
+                <Property Name="PartnerFunction" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Funkcija partnera"/>
+                <Property Name="BPCustomerNumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Kupac" sap:quickinfo="Broj kupca poslovnog partnera"/>
+                <Property Name="CustomerPartnerDescription" Type="Edm.String" MaxLength="30" sap:label="Opis partnera" sap:quickinfo="Opis kupca partnera (pogon, skladišna lokacija)"/>
+                <Property Name="DefaultPartner" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Standardni partner"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Ovlašćenje" sap:quickinfo="Grupa ovlašćenja"/>
+            </EntityType>
+            <EntityType Name="A_SupplierType" sap:label="Dobavljač" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Supplier"/>
+                </Key>
+                <Property Name="Supplier" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Dobavljač" sap:quickinfo="Broj računa dobavljača ili kreditora"/>
+                <Property Name="AlternativePayeeAccountNumber" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Alt. prim. plaćanja" sap:quickinfo="Broj računa alternativnog primaoca plaćanja"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Ovlašćenje" sap:quickinfo="Grupa ovlašćenja"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Kreirao" sap:quickinfo="Ime osobe koja je kreirala objekat" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreationDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Kreirano" sap:quickinfo="Datum kada je zapis kreiran" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Customer" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Kupac" sap:quickinfo="Broj kupca"/>
+                <Property Name="PaymentIsBlockedForSupplier" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Blokiranje plaćanja"/>
+                <Property Name="PostingIsBlocked" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Blok. knjiženja" sap:quickinfo="Centralno blokiranje knjiženja"/>
+                <Property Name="PurchasingIsBlocked" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Blokir. nabavke" sap:quickinfo="Centralno dodeljeno blokiranje nabavke"/>
+                <Property Name="SupplierAccountGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa računa" sap:quickinfo="Grupa računa dobavljača"/>
+                <Property Name="SupplierFullName" Type="Edm.String" MaxLength="220" sap:display-format="UpperCase" sap:label="Naziv dobavljača" sap:quickinfo="Pun naziv dobavljača" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="SupplierName" Type="Edm.String" MaxLength="80" sap:label="Naziv dobavljača" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="VATRegistration" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="PDV registr. broj" sap:quickinfo="Porez na dodatu vrednost - registarski broj"/>
+                <Property Name="BirthDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Datum rođenja" sap:quickinfo="Datum rođenja lica koje podleže zadržanom porezu"/>
+                <Property Name="ConcatenatedInternationalLocNo" Type="Edm.String" MaxLength="20" sap:label="Međun.broj lokacije" sap:quickinfo="Spojeni međunarodni broj lokacije" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DeletionIndicator" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Oznaka za bris." sap:quickinfo="Centralna oznaka za brisanje za matični zapis"/>
+                <Property Name="FiscalAddress" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Fiskalna adresa" sap:quickinfo="Broj računa matičnog zapisa s fiskalnom adresom"/>
+                <Property Name="Industry" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Industrijska grana" sap:quickinfo="Ključ industrije" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="InternationalLocationNumber1" Type="Edm.String" MaxLength="7" sap:display-format="NonNegative" sap:label="Međ. broj lokacije 1" sap:quickinfo="Međunarodni broj lokacije (deo 1)"/>
+                <Property Name="InternationalLocationNumber2" Type="Edm.String" MaxLength="5" sap:display-format="NonNegative" sap:label="Međ. broj lokacije 2" sap:quickinfo="Međunarodni broj lokacije (deo 2)"/>
+                <Property Name="InternationalLocationNumber3" Type="Edm.String" MaxLength="1" sap:display-format="NonNegative" sap:label="Kontrolni broj" sap:quickinfo="Provera brojke za međunarodni broj lokacije"/>
+                <Property Name="IsNaturalPerson" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Fizičko lice"/>
+                <Property Name="ResponsibleType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Tip poreza"/>
+                <Property Name="SuplrQltyInProcmtCertfnValidTo" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="SistemUprKvalVažiDo" sap:quickinfo="Datum validnosti sertifikata"/>
+                <Property Name="SuplrQualityManagementSystem" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Stvarni QM sistem" sap:quickinfo="QM sistem dobavljača"/>
+                <Property Name="SupplierCorporateGroup" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Ključ grupe"/>
+                <Property Name="SupplierProcurementBlock" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Funkcija blokiranja" sap:quickinfo="Funkcija koja će biti blokirana"/>
+                <Property Name="TaxNumber1" Type="Edm.String" MaxLength="16" sap:display-format="UpperCase" sap:label="Poreski broj 1" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TaxNumber2" Type="Edm.String" MaxLength="11" sap:display-format="UpperCase" sap:label="Poreski broj 2" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TaxNumber3" Type="Edm.String" MaxLength="18" sap:display-format="UpperCase" sap:label="Poreski broj 3" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TaxNumber4" Type="Edm.String" MaxLength="18" sap:display-format="UpperCase" sap:label="Poreski broj 4" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TaxNumber5" Type="Edm.String" MaxLength="60" sap:display-format="UpperCase" sap:label="Poreski broj 5" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="TaxNumberResponsible" Type="Edm.String" MaxLength="18" sap:display-format="UpperCase" sap:label="Poreski broj" sap:quickinfo="Poreski broj nadležnog poreskog organa"/>
+                <Property Name="TaxNumberType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Tip poresk.broja" sap:quickinfo="Tip poreskog broja"/>
+                <NavigationProperty Name="to_SupplierCompany" Relationship="API_BUSINESS_PARTNER.assoc_138939C49DA3F66FEE8C74425F390DD3" FromRole="FromRole_assoc_138939C49DA3F66FEE8C74425F390DD3" ToRole="ToRole_assoc_138939C49DA3F66FEE8C74425F390DD3"/>
+                <NavigationProperty Name="to_SupplierPurchasingOrg" Relationship="API_BUSINESS_PARTNER.assoc_B2EAAC3147A4639C17A2CFEACA07BE23" FromRole="FromRole_assoc_B2EAAC3147A4639C17A2CFEACA07BE23" ToRole="ToRole_assoc_B2EAAC3147A4639C17A2CFEACA07BE23"/>
+            </EntityType>
+            <EntityType Name="A_SupplierCompanyType" sap:label="Kompanija dobavljača" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Supplier"/>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="Supplier" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Dobavljač" sap:quickinfo="Broj računa dobavljača ili kreditora"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Šifra kompanije"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Ovlašćenje" sap:quickinfo="Grupa ovlašćenja"/>
+                <Property Name="CompanyCodeName" Type="Edm.String" MaxLength="25" sap:label="Naziv kompanije" sap:quickinfo="Naziv šifre kompanije ili kompanije" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="PaymentBlockingReason" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Blokada plaćanja" sap:quickinfo="Ključ blokiranja za plaćanje"/>
+                <Property Name="SupplierIsBlockedForPosting" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Bl.knj. za šif.komp." sap:quickinfo="Blokiranje knjiženja za šifru kompanije"/>
+                <Property Name="AccountingClerk" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="SkraćZaRačun" sap:quickinfo="Skraćenica za računovođu"/>
+                <Property Name="AccountingClerkFaxNumber" Type="Edm.String" MaxLength="31" sap:label="Faks računovođe" sap:quickinfo="Broj faksa računovođe kod poslovnog partnera"/>
+                <Property Name="AccountingClerkPhoneNumber" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Br. tel. računovođe" sap:quickinfo="Broj telefona računovođe kod poslovnog partnera"/>
+                <Property Name="SupplierClerk" Type="Edm.String" MaxLength="15" sap:label="Refer.kod dobav." sap:quickinfo="Referent kod dobavljača"/>
+                <Property Name="SupplierClerkURL" Type="Edm.String" MaxLength="130" sap:label="Interner adr. refer." sap:quickinfo="Internet adresa referenta u partnerskoj kompaniji"/>
+                <Property Name="PaymentMethodsList" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Metodi plaćanja" sap:quickinfo="Lista načina plaćanja koji se uzimaju u obzir"/>
+                <Property Name="PaymentTerms" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Uslovi plaćanja" sap:quickinfo="Ključ uslova plaćanja"/>
+                <Property Name="ClearCustomerSupplier" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Zatvar. sa kupcem" sap:quickinfo="Pokazatelj: Zatvaranje između kupca i dobavljača ?"/>
+                <Property Name="IsToBeLocallyProcessed" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Lokalna obrada" sap:quickinfo="Pokazatelj: Lokalna obrada?"/>
+                <Property Name="ItemIsToBePaidSeparately" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Pojedinačno plaćanje" sap:quickinfo="Pokazatelj: Plati sve stavke posebno ?"/>
+                <Property Name="PaymentIsToBeSentByEDI" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Obav.o plać.po EDI" sap:quickinfo="Pokazatelj: Pošalji obaveštenja o plaćanju po EDI"/>
+                <Property Name="HouseBank" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:label="Domaća banka" sap:quickinfo="Kratki ključ za domaću banku"/>
+                <Property Name="CheckPaidDurationInDays" Type="Edm.Decimal" Precision="3" Scale="0" sap:label="Vreme unovčav.čeka" sap:quickinfo="Verovatno vreme do unovčavanja čeka"/>
+                <Property Name="BillOfExchLmtAmtInCoCodeCrcy" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Ograničenje menice" sap:quickinfo="Ograničenje menice (u lokalnoj valuti)"/>
+                <Property Name="SupplierClerkIDBySupplier" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Račun kod dobavljača" sap:quickinfo="Naš broj računa kod dobavljača"/>
+                <Property Name="ReconciliationAccount" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Račun usklađivanja" sap:quickinfo="Račun usklađivanja u glavnoj knjizi"/>
+                <Property Name="InterestCalculationCode" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Pokazatelj kamate" sap:quickinfo="Pokazatelj izračunavanja kamate"/>
+                <Property Name="InterestCalculationDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Posl.ključ.dat." sap:quickinfo="Ključni datum poslednjeg izračunavanja kamate"/>
+                <Property Name="IntrstCalcFrequencyInMonths" Type="Edm.String" MaxLength="2" sap:display-format="NonNegative" sap:label="UčestIzračKam" sap:quickinfo="Učestalost izračunavanja kamate u mesecima"/>
+                <Property Name="SupplierHeadOffice" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Glavna kancelarija" sap:quickinfo="Broj računa glavne kancelarije"/>
+                <Property Name="AlternativePayee" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Alt. prim. plaćanja" sap:quickinfo="Broj računa alternativnog primaoca plaćanja"/>
+                <Property Name="LayoutSortingRule" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Ključ ređanja" sap:quickinfo="Ključ za ređanje po brojevima dodele"/>
+                <Property Name="APARToleranceGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa dopušt.odstup." sap:quickinfo="Grupa dopuštenog odstupanja za poslovnog partnera/račun GK"/>
+                <Property Name="SupplierCertificationDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Datum sertifikata"/>
+                <Property Name="SupplierAccountNote" Type="Edm.String" MaxLength="30" sap:label="Beleška o računu" sap:quickinfo="Beleške"/>
+                <Property Name="WithholdingTaxCountry" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Zemlja zadrž. poreza" sap:quickinfo="Ključ zemlje zadržanog poreza"/>
+                <Property Name="DeletionIndicator" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Ozn.bris. šif.komp." sap:quickinfo="Oznaka za brisanje za matični zapis (nivo šifre kompanije)"/>
+                <Property Name="CashPlanningGroup" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Grupa planiranja"/>
+                <Property Name="IsToBeCheckedForDuplicates" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Proveri dvos.fakturu" sap:quickinfo="Oznaka provere za dvostruke fakture ili odobrenja"/>
+                <Property Name="SupplierAccountGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa računa" sap:quickinfo="Grupa računa dobavljača"/>
+                <NavigationProperty Name="to_SupplierDunning" Relationship="API_BUSINESS_PARTNER.assoc_5E8DB5909F6A0FD5A1171E3650CDC3F9" FromRole="FromRole_assoc_5E8DB5909F6A0FD5A1171E3650CDC3F9" ToRole="ToRole_assoc_5E8DB5909F6A0FD5A1171E3650CDC3F9"/>
+                <NavigationProperty Name="to_SupplierWithHoldingTax" Relationship="API_BUSINESS_PARTNER.assoc_55F62B4F505C71EB6E4B122E91DC5745" FromRole="FromRole_assoc_55F62B4F505C71EB6E4B122E91DC5745" ToRole="ToRole_assoc_55F62B4F505C71EB6E4B122E91DC5745"/>
+            </EntityType>
+            <EntityType Name="A_SupplierDunningType" sap:label="Opomena kompanije dobavljača" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Supplier"/>
+                    <PropertyRef Name="CompanyCode"/>
+                    <PropertyRef Name="DunningArea"/>
+                </Key>
+                <Property Name="Supplier" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Dobavljač" sap:quickinfo="Broj računa dobavljača ili kreditora"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Šifra kompanije"/>
+                <Property Name="DunningArea" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Oblast opominjanja"/>
+                <Property Name="DunningBlock" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Blokada opom." sap:quickinfo="Blokada opominjanja"/>
+                <Property Name="DunningLevel" Type="Edm.String" MaxLength="1" sap:display-format="NonNegative" sap:label="Nivo opominjanja"/>
+                <Property Name="DunningProcedure" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Postupak opominjanja"/>
+                <Property Name="DunningRecipient" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Primalac opominjanja" sap:quickinfo="Broj računa primaoca opominjanja"/>
+                <Property Name="LastDunnedOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Poslednje opom." sap:quickinfo="Datum poslednje opomene"/>
+                <Property Name="LegDunningProcedureOn" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Pravni post.opom.od" sap:quickinfo="Datum pravnih postupaka opominjanja"/>
+                <Property Name="DunningClerk" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Račun.za opominjanje" sap:quickinfo="Računovođa za opominjanje"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Ovlašćenje" sap:quickinfo="Grupa ovlašćenja"/>
+                <Property Name="SupplierAccountGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa računa" sap:quickinfo="Grupa računa dobavljača"/>
+            </EntityType>
+            <EntityType Name="A_SupplierPartnerFuncType" sap:label="Funkcija partnera nabavke dobavljača" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Supplier"/>
+                    <PropertyRef Name="PurchasingOrganization"/>
+                    <PropertyRef Name="SupplierSubrange"/>
+                    <PropertyRef Name="Plant"/>
+                    <PropertyRef Name="PartnerFunction"/>
+                    <PropertyRef Name="PartnerCounter"/>
+                </Key>
+                <Property Name="Supplier" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Dobavljač" sap:quickinfo="Broj računa dobavljača ili kreditora"/>
+                <Property Name="PurchasingOrganization" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Organizacija nabavke"/>
+                <Property Name="SupplierSubrange" Type="Edm.String" Nullable="false" MaxLength="6" sap:display-format="UpperCase" sap:label="Delim.asort.dobav." sap:quickinfo="Delimični asortiman dobavljača"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Pogon"/>
+                <Property Name="PartnerFunction" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Funkcija partnera"/>
+                <Property Name="PartnerCounter" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="NonNegative" sap:label="Brojač partnera"/>
+                <Property Name="DefaultPartner" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Standardni partner"/>
+                <Property Name="CreationDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Kreirano" sap:quickinfo="Datum kada je zapis kreiran" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Kreirao" sap:quickinfo="Ime osobe koja je kreirala objekat" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ReferenceSupplier" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Ref.za dobavlj." sap:quickinfo="Referenca za drugog dobavljača"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Ovlašćenje" sap:quickinfo="Grupa ovlašćenja"/>
+            </EntityType>
+            <EntityType Name="A_SupplierPurchasingOrgType" sap:label="Organizacija nabavke dobavljača" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Supplier"/>
+                    <PropertyRef Name="PurchasingOrganization"/>
+                </Key>
+                <Property Name="Supplier" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Dobavljač" sap:quickinfo="Broj računa dobavljača"/>
+                <Property Name="PurchasingOrganization" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Organizacija nabavke"/>
+                <Property Name="CalculationSchemaGroupCode" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Grupa šema, dobavlj." sap:quickinfo="Grupa za šemu izračunavanja (dobavljač)"/>
+                <Property Name="DeletionIndicator" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Ozn.bris.zaOrgN" sap:quickinfo="Oznaka brisanja za dobavljača na nivou nabavke"/>
+                <Property Name="IncotermsClassification" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Incoterm" sap:quickinfo="Incoterms (deo 1)"/>
+                <Property Name="IncotermsTransferLocation" Type="Edm.String" MaxLength="28" sap:label="Incoterms (deo 2)"/>
+                <Property Name="IncotermsVersion" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Incoterms verzija"/>
+                <Property Name="IncotermsLocation1" Type="Edm.String" MaxLength="70" sap:label="Incoterms lokacija 1"/>
+                <Property Name="IncotermsLocation2" Type="Edm.String" MaxLength="70" sap:label="Incoterms lokacija 2"/>
+                <Property Name="InvoiceIsGoodsReceiptBased" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Verif.fak.na osn.PR" sap:quickinfo="Pokazatelj: Verifikacija fakture zasnovana na prijemu robe"/>
+                <Property Name="MaterialPlannedDeliveryDurn" Type="Edm.Decimal" Precision="3" Scale="0" sap:label="Plan.vreme isporuke" sap:quickinfo="Planirano vreme isporuke u danima"/>
+                <Property Name="MinimumOrderAmount" Type="Edm.Decimal" Precision="14" Scale="3" sap:label="Min. vrednost naloga" sap:quickinfo="Minimalna vrednost naloga"/>
+                <Property Name="PaymentTerms" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Uslovi plaćanja" sap:quickinfo="Ključ uslova plaćanja"/>
+                <Property Name="PricingDateControl" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Kontr.dat.odr.cena" sap:quickinfo="Kontrola datuma određivanja cene"/>
+                <Property Name="PurOrdAutoGenerationIsAllowed" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Autom.nal.za nabavku" sap:quickinfo="Automatsko generisanje naloga za nabavku dozvoljeno"/>
+                <Property Name="PurchaseOrderCurrency" Type="Edm.String" MaxLength="5" sap:label="Valuta naloga" sap:quickinfo="Valuta naloga za nabavku" sap:semantics="currency-code"/>
+                <Property Name="PurchasingGroup" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Grupa nabavki"/>
+                <Property Name="PurchasingIsBlockedForSupplier" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Bl.nab.org.nab." sap:quickinfo="Blokiranje nabavke na nivou organizacije nabavke"/>
+                <Property Name="ShippingCondition" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Uslovi otpreme"/>
+                <Property Name="SupplierABCClassificationCode" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="ABC pokazatelj"/>
+                <Property Name="SupplierPhoneNumber" Type="Edm.String" MaxLength="16" sap:label="Telefon" sap:quickinfo="Broj telefona dobavljača"/>
+                <Property Name="SupplierRespSalesPersonName" Type="Edm.String" MaxLength="30" sap:label="Prodavac" sap:quickinfo="Odgovorni prodavac kod dobavljača"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Ovlašćenje" sap:quickinfo="Grupa ovlašćenja"/>
+                <Property Name="SupplierAccountGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Grupa računa" sap:quickinfo="Grupa računa dobavljača"/>
+                <NavigationProperty Name="to_PartnerFunction" Relationship="API_BUSINESS_PARTNER.assoc_20F5EAD3848FBFF2C9E0F6D45CFF1BA9" FromRole="FromRole_assoc_20F5EAD3848FBFF2C9E0F6D45CFF1BA9" ToRole="ToRole_assoc_20F5EAD3848FBFF2C9E0F6D45CFF1BA9"/>
+            </EntityType>
+            <EntityType Name="A_SupplierWithHoldingTaxType" sap:label="Porez po odbitku kompanije dobavljača" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Supplier"/>
+                    <PropertyRef Name="CompanyCode"/>
+                    <PropertyRef Name="WithholdingTaxType"/>
+                </Key>
+                <Property Name="Supplier" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Dobavljač" sap:quickinfo="Broj računa dobavljača ili kreditora"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Šifra kompanije"/>
+                <Property Name="WithholdingTaxType" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Tip zadržanog poreza" sap:quickinfo="Pokazatelj tipa zadržanog poreza"/>
+                <Property Name="ExemptionDateBegin" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Datum poč.izuzimanja" sap:quickinfo="Datum kada izuzimanje počinje"/>
+                <Property Name="ExemptionDateEnd" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Datum zav.izuzimanja" sap:quickinfo="Datum kada izuzimanje završava"/>
+                <Property Name="ExemptionReason" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Razlog izuzimanja" sap:quickinfo="Razlog za izuzimanje"/>
+                <Property Name="IsWithholdingTaxSubject" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Podlož.zadr.por" sap:quickinfo="Pokazatelj: Podložno zadržanom porezu?"/>
+                <Property Name="RecipientType" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Tip primaoca"/>
+                <Property Name="WithholdingTaxCertificate" Type="Edm.String" MaxLength="25" sap:display-format="UpperCase" sap:label="Broj izuzimanja" sap:quickinfo="Broj sertifikata izuzimanja"/>
+                <Property Name="WithholdingTaxCode" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Šifra zadr.por." sap:quickinfo="Šifra poreza na izvoru"/>
+                <Property Name="WithholdingTaxExmptPercent" Type="Edm.Decimal" Precision="5" Scale="2" sap:label="Stopa izuzimanja"/>
+                <Property Name="WithholdingTaxNumber" Type="Edm.String" MaxLength="16" sap:display-format="UpperCase" sap:label="Br.por.na izv." sap:quickinfo="Identifikacioni broj poreza na izvoru"/>
+                <Property Name="AuthorizationGroup" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Ovlašćenje" sap:quickinfo="Grupa ovlašćenja"/>
+            </EntityType>
+            <Association Name="assoc_20F5EAD3848FBFF2C9E0F6D45CFF1BA9" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_SupplierPurchasingOrgType" Multiplicity="1" Role="FromRole_assoc_20F5EAD3848FBFF2C9E0F6D45CFF1BA9"/>
+                <End Type="API_BUSINESS_PARTNER.A_SupplierPartnerFuncType" Multiplicity="*" Role="ToRole_assoc_20F5EAD3848FBFF2C9E0F6D45CFF1BA9"/>
+            </Association>
+            <Association Name="assoc_138939C49DA3F66FEE8C74425F390DD3" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_SupplierType" Multiplicity="1" Role="FromRole_assoc_138939C49DA3F66FEE8C74425F390DD3"/>
+                <End Type="API_BUSINESS_PARTNER.A_SupplierCompanyType" Multiplicity="*" Role="ToRole_assoc_138939C49DA3F66FEE8C74425F390DD3"/>
+            </Association>
+            <Association Name="assoc_B2EAAC3147A4639C17A2CFEACA07BE23" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_SupplierType" Multiplicity="1" Role="FromRole_assoc_B2EAAC3147A4639C17A2CFEACA07BE23"/>
+                <End Type="API_BUSINESS_PARTNER.A_SupplierPurchasingOrgType" Multiplicity="*" Role="ToRole_assoc_B2EAAC3147A4639C17A2CFEACA07BE23"/>
+            </Association>
+            <Association Name="assoc_BB9464C0EE976A75A05F937B73A26763" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_CustomerType" Multiplicity="1" Role="FromRole_assoc_BB9464C0EE976A75A05F937B73A26763"/>
+                <End Type="API_BUSINESS_PARTNER.A_CustomerCompanyType" Multiplicity="*" Role="ToRole_assoc_BB9464C0EE976A75A05F937B73A26763"/>
+            </Association>
+            <Association Name="assoc_70A8B5CCADF265E097DC86BC7B699B31" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_CustomerType" Multiplicity="1" Role="FromRole_assoc_70A8B5CCADF265E097DC86BC7B699B31"/>
+                <End Type="API_BUSINESS_PARTNER.A_CustomerSalesAreaType" Multiplicity="*" Role="ToRole_assoc_70A8B5CCADF265E097DC86BC7B699B31"/>
+            </Association>
+            <Association Name="assoc_07A4C6774A79F32D8C1BDA1CBE5A2FA7" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerType" Multiplicity="1" Role="FromRole_assoc_07A4C6774A79F32D8C1BDA1CBE5A2FA7"/>
+                <End Type="API_BUSINESS_PARTNER.A_BuPaIdentificationType" Multiplicity="*" Role="ToRole_assoc_07A4C6774A79F32D8C1BDA1CBE5A2FA7"/>
+            </Association>
+            <Association Name="assoc_91BCE13588BD3046353CD68D3098C2E5" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerType" Multiplicity="1" Role="FromRole_assoc_91BCE13588BD3046353CD68D3098C2E5"/>
+                <End Type="API_BUSINESS_PARTNER.A_BuPaIndustryType" Multiplicity="*" Role="ToRole_assoc_91BCE13588BD3046353CD68D3098C2E5"/>
+            </Association>
+            <Association Name="assoc_6247ED959B75350E6EA6CEDD2CBEC7E7" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerType" Multiplicity="1" Role="FromRole_assoc_6247ED959B75350E6EA6CEDD2CBEC7E7"/>
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerAddressType" Multiplicity="*" Role="ToRole_assoc_6247ED959B75350E6EA6CEDD2CBEC7E7"/>
+            </Association>
+            <Association Name="assoc_05F0DA10FFAB2836605571E5ABB6E5B9" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerType" Multiplicity="1" Role="FromRole_assoc_05F0DA10FFAB2836605571E5ABB6E5B9"/>
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerBankType" Multiplicity="*" Role="ToRole_assoc_05F0DA10FFAB2836605571E5ABB6E5B9"/>
+            </Association>
+            <Association Name="assoc_02AC1AF45478434AAB93B18ECA2FB863" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerType" Multiplicity="1" Role="FromRole_assoc_02AC1AF45478434AAB93B18ECA2FB863"/>
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerContactType" Multiplicity="*" Role="ToRole_assoc_02AC1AF45478434AAB93B18ECA2FB863"/>
+            </Association>
+            <Association Name="assoc_FB863C7C69262D926CE14CA6A50667DB" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerType" Multiplicity="1" Role="FromRole_assoc_FB863C7C69262D926CE14CA6A50667DB"/>
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerRoleType" Multiplicity="*" Role="ToRole_assoc_FB863C7C69262D926CE14CA6A50667DB"/>
+            </Association>
+            <Association Name="assoc_DADC7016DBB892642F90D68E0E47B6E8" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerType" Multiplicity="1" Role="FromRole_assoc_DADC7016DBB892642F90D68E0E47B6E8"/>
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerTaxNumberType" Multiplicity="*" Role="ToRole_assoc_DADC7016DBB892642F90D68E0E47B6E8"/>
+            </Association>
+            <Association Name="assoc_80838433DCE8E16AA7C9031C32896631" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerType" Multiplicity="1" Role="FromRole_assoc_80838433DCE8E16AA7C9031C32896631"/>
+                <End Type="API_BUSINESS_PARTNER.A_CustomerType" Multiplicity="0..1" Role="ToRole_assoc_80838433DCE8E16AA7C9031C32896631"/>
+            </Association>
+            <Association Name="assoc_7256A9801E68AE14E59054C2738099F1" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerType" Multiplicity="1" Role="FromRole_assoc_7256A9801E68AE14E59054C2738099F1"/>
+                <End Type="API_BUSINESS_PARTNER.A_SupplierType" Multiplicity="0..1" Role="ToRole_assoc_7256A9801E68AE14E59054C2738099F1"/>
+            </Association>
+            <Association Name="assoc_EC8BD55FE296CB9F7E96A12A10A83C8A" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BPContactToAddressType" Multiplicity="1" Role="FromRole_assoc_EC8BD55FE296CB9F7E96A12A10A83C8A"/>
+                <End Type="API_BUSINESS_PARTNER.A_AddressFaxNumberType" Multiplicity="*" Role="ToRole_assoc_EC8BD55FE296CB9F7E96A12A10A83C8A"/>
+            </Association>
+            <Association Name="assoc_A30D7A481BC8C28A25685BA876365019" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BPContactToAddressType" Multiplicity="1" Role="FromRole_assoc_A30D7A481BC8C28A25685BA876365019"/>
+                <End Type="API_BUSINESS_PARTNER.A_AddressPhoneNumberType" Multiplicity="*" Role="ToRole_assoc_A30D7A481BC8C28A25685BA876365019"/>
+            </Association>
+            <Association Name="assoc_E5744DCC3F8BA081306832D86DBAE35B" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BPContactToAddressType" Multiplicity="1" Role="FromRole_assoc_E5744DCC3F8BA081306832D86DBAE35B"/>
+                <End Type="API_BUSINESS_PARTNER.A_AddressPhoneNumberType" Multiplicity="*" Role="ToRole_assoc_E5744DCC3F8BA081306832D86DBAE35B"/>
+            </Association>
+            <Association Name="assoc_313909BAAED14CA9CB4829C648286478" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BPContactToAddressType" Multiplicity="1" Role="FromRole_assoc_313909BAAED14CA9CB4829C648286478"/>
+                <End Type="API_BUSINESS_PARTNER.A_AddressHomePageURLType" Multiplicity="*" Role="ToRole_assoc_313909BAAED14CA9CB4829C648286478"/>
+            </Association>
+            <Association Name="assoc_76A1D4C9690D91482219A96E6133DCA1" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BPContactToAddressType" Multiplicity="1" Role="FromRole_assoc_76A1D4C9690D91482219A96E6133DCA1"/>
+                <End Type="API_BUSINESS_PARTNER.A_AddressEmailAddressType" Multiplicity="*" Role="ToRole_assoc_76A1D4C9690D91482219A96E6133DCA1"/>
+            </Association>
+            <Association Name="assoc_8273BE5CD7CC24B836264946436461DA" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_CustomerCompanyType" Multiplicity="1" Role="FromRole_assoc_8273BE5CD7CC24B836264946436461DA"/>
+                <End Type="API_BUSINESS_PARTNER.A_CustomerDunningType" Multiplicity="*" Role="ToRole_assoc_8273BE5CD7CC24B836264946436461DA"/>
+            </Association>
+            <Association Name="assoc_65B2B550EF37ECC341EC132360E3D0A8" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_CustomerCompanyType" Multiplicity="1" Role="FromRole_assoc_65B2B550EF37ECC341EC132360E3D0A8"/>
+                <End Type="API_BUSINESS_PARTNER.A_CustomerWithHoldingTaxType" Multiplicity="*" Role="ToRole_assoc_65B2B550EF37ECC341EC132360E3D0A8"/>
+            </Association>
+            <Association Name="assoc_091DBA85F5FE3E747FC3884B40B4EBFD" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerAddressType" Multiplicity="1" Role="FromRole_assoc_091DBA85F5FE3E747FC3884B40B4EBFD"/>
+                <End Type="API_BUSINESS_PARTNER.A_BuPaAddressUsageType" Multiplicity="*" Role="ToRole_assoc_091DBA85F5FE3E747FC3884B40B4EBFD"/>
+            </Association>
+            <Association Name="assoc_B21DC96A1904D36E94FBE84771BD7E99" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerAddressType" Multiplicity="1" Role="FromRole_assoc_B21DC96A1904D36E94FBE84771BD7E99"/>
+                <End Type="API_BUSINESS_PARTNER.A_AddressEmailAddressType" Multiplicity="*" Role="ToRole_assoc_B21DC96A1904D36E94FBE84771BD7E99"/>
+            </Association>
+            <Association Name="assoc_43B546339886BBB6ED35EA7CA84FB32B" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerAddressType" Multiplicity="1" Role="FromRole_assoc_43B546339886BBB6ED35EA7CA84FB32B"/>
+                <End Type="API_BUSINESS_PARTNER.A_AddressFaxNumberType" Multiplicity="*" Role="ToRole_assoc_43B546339886BBB6ED35EA7CA84FB32B"/>
+            </Association>
+            <Association Name="assoc_60DDA2597182EA56C114908472D2FB81" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerAddressType" Multiplicity="1" Role="FromRole_assoc_60DDA2597182EA56C114908472D2FB81"/>
+                <End Type="API_BUSINESS_PARTNER.A_AddressPhoneNumberType" Multiplicity="*" Role="ToRole_assoc_60DDA2597182EA56C114908472D2FB81"/>
+            </Association>
+            <Association Name="assoc_35D5A40C930BECE699C4526B1B1F8D1C" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerAddressType" Multiplicity="1" Role="FromRole_assoc_35D5A40C930BECE699C4526B1B1F8D1C"/>
+                <End Type="API_BUSINESS_PARTNER.A_AddressPhoneNumberType" Multiplicity="*" Role="ToRole_assoc_35D5A40C930BECE699C4526B1B1F8D1C"/>
+            </Association>
+            <Association Name="assoc_24C290CBC7FE69574AD9D79A5C631212" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerAddressType" Multiplicity="1" Role="FromRole_assoc_24C290CBC7FE69574AD9D79A5C631212"/>
+                <End Type="API_BUSINESS_PARTNER.A_AddressHomePageURLType" Multiplicity="*" Role="ToRole_assoc_24C290CBC7FE69574AD9D79A5C631212"/>
+            </Association>
+            <Association Name="assoc_68C6FA4D5F974F8BBFCA5D234FA05107" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerContactType" Multiplicity="1" Role="FromRole_assoc_68C6FA4D5F974F8BBFCA5D234FA05107"/>
+                <End Type="API_BUSINESS_PARTNER.A_BPContactToAddressType" Multiplicity="*" Role="ToRole_assoc_68C6FA4D5F974F8BBFCA5D234FA05107"/>
+            </Association>
+            <Association Name="assoc_ABC4A572A4A8802D97BA70498CCE4A4E" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerContactType" Multiplicity="1" Role="FromRole_assoc_ABC4A572A4A8802D97BA70498CCE4A4E"/>
+                <End Type="API_BUSINESS_PARTNER.A_BPContactToFuncAndDeptType" Multiplicity="0..1" Role="ToRole_assoc_ABC4A572A4A8802D97BA70498CCE4A4E"/>
+            </Association>
+            <Association Name="assoc_5E8DB5909F6A0FD5A1171E3650CDC3F9" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_SupplierCompanyType" Multiplicity="1" Role="FromRole_assoc_5E8DB5909F6A0FD5A1171E3650CDC3F9"/>
+                <End Type="API_BUSINESS_PARTNER.A_SupplierDunningType" Multiplicity="*" Role="ToRole_assoc_5E8DB5909F6A0FD5A1171E3650CDC3F9"/>
+            </Association>
+            <Association Name="assoc_55F62B4F505C71EB6E4B122E91DC5745" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_SupplierCompanyType" Multiplicity="1" Role="FromRole_assoc_55F62B4F505C71EB6E4B122E91DC5745"/>
+                <End Type="API_BUSINESS_PARTNER.A_SupplierWithHoldingTaxType" Multiplicity="*" Role="ToRole_assoc_55F62B4F505C71EB6E4B122E91DC5745"/>
+            </Association>
+            <Association Name="assoc_3747E462BFFBB3127682A67959ECC8AA" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_CustomerSalesAreaType" Multiplicity="1" Role="FromRole_assoc_3747E462BFFBB3127682A67959ECC8AA"/>
+                <End Type="API_BUSINESS_PARTNER.A_CustSalesPartnerFuncType" Multiplicity="*" Role="ToRole_assoc_3747E462BFFBB3127682A67959ECC8AA"/>
+            </Association>
+            <Association Name="assoc_49CF1243367384CB6C19B5648CA1F817" sap:content-version="1">
+                <End Type="API_BUSINESS_PARTNER.A_CustomerSalesAreaType" Multiplicity="1" Role="FromRole_assoc_49CF1243367384CB6C19B5648CA1F817"/>
+                <End Type="API_BUSINESS_PARTNER.A_CustomerSalesAreaTaxType" Multiplicity="*" Role="ToRole_assoc_49CF1243367384CB6C19B5648CA1F817"/>
+            </Association>
+            <EntityContainer Name="API_BUSINESS_PARTNER_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="A_AddressEmailAddress" EntityType="API_BUSINESS_PARTNER.A_AddressEmailAddressType" sap:content-version="1"/>
+                <EntitySet Name="A_AddressFaxNumber" EntityType="API_BUSINESS_PARTNER.A_AddressFaxNumberType" sap:content-version="1"/>
+                <EntitySet Name="A_AddressHomePageURL" EntityType="API_BUSINESS_PARTNER.A_AddressHomePageURLType" sap:content-version="1"/>
+                <EntitySet Name="A_AddressPhoneNumber" EntityType="API_BUSINESS_PARTNER.A_AddressPhoneNumberType" sap:content-version="1"/>
+                <EntitySet Name="A_BPContactToAddress" EntityType="API_BUSINESS_PARTNER.A_BPContactToAddressType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="A_BPContactToFuncAndDept" EntityType="API_BUSINESS_PARTNER.A_BPContactToFuncAndDeptType" sap:creatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="A_BuPaAddressUsage" EntityType="API_BUSINESS_PARTNER.A_BuPaAddressUsageType" sap:content-version="1"/>
+                <EntitySet Name="A_BuPaIdentification" EntityType="API_BUSINESS_PARTNER.A_BuPaIdentificationType" sap:content-version="1"/>
+                <EntitySet Name="A_BuPaIndustry" EntityType="API_BUSINESS_PARTNER.A_BuPaIndustryType" sap:content-version="1"/>
+                <EntitySet Name="A_BusinessPartner" EntityType="API_BUSINESS_PARTNER.A_BusinessPartnerType" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="A_BusinessPartnerAddress" EntityType="API_BUSINESS_PARTNER.A_BusinessPartnerAddressType" sap:content-version="1"/>
+                <EntitySet Name="A_BusinessPartnerBank" EntityType="API_BUSINESS_PARTNER.A_BusinessPartnerBankType" sap:content-version="1"/>
+                <EntitySet Name="A_BusinessPartnerContact" EntityType="API_BUSINESS_PARTNER.A_BusinessPartnerContactType" sap:content-version="1"/>
+                <EntitySet Name="A_BusinessPartnerRole" EntityType="API_BUSINESS_PARTNER.A_BusinessPartnerRoleType" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="A_BusinessPartnerTaxNumber" EntityType="API_BUSINESS_PARTNER.A_BusinessPartnerTaxNumberType" sap:content-version="1"/>
+                <EntitySet Name="A_Customer" EntityType="API_BUSINESS_PARTNER.A_CustomerType" sap:creatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="A_CustomerCompany" EntityType="API_BUSINESS_PARTNER.A_CustomerCompanyType" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="A_CustomerDunning" EntityType="API_BUSINESS_PARTNER.A_CustomerDunningType" sap:content-version="1"/>
+                <EntitySet Name="A_CustomerSalesArea" EntityType="API_BUSINESS_PARTNER.A_CustomerSalesAreaType" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="A_CustomerSalesAreaTax" EntityType="API_BUSINESS_PARTNER.A_CustomerSalesAreaTaxType" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="A_CustomerWithHoldingTax" EntityType="API_BUSINESS_PARTNER.A_CustomerWithHoldingTaxType" sap:content-version="1"/>
+                <EntitySet Name="A_CustSalesPartnerFunc" EntityType="API_BUSINESS_PARTNER.A_CustSalesPartnerFuncType" sap:content-version="1"/>
+                <EntitySet Name="A_Supplier" EntityType="API_BUSINESS_PARTNER.A_SupplierType" sap:creatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="A_SupplierCompany" EntityType="API_BUSINESS_PARTNER.A_SupplierCompanyType" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="A_SupplierDunning" EntityType="API_BUSINESS_PARTNER.A_SupplierDunningType" sap:content-version="1"/>
+                <EntitySet Name="A_SupplierPartnerFunc" EntityType="API_BUSINESS_PARTNER.A_SupplierPartnerFuncType" sap:content-version="1"/>
+                <EntitySet Name="A_SupplierPurchasingOrg" EntityType="API_BUSINESS_PARTNER.A_SupplierPurchasingOrgType" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="A_SupplierWithHoldingTax" EntityType="API_BUSINESS_PARTNER.A_SupplierWithHoldingTaxType" sap:content-version="1"/>
+                <AssociationSet Name="assoc_20F5EAD3848FBFF2C9E0F6D45CFF1BA9" Association="API_BUSINESS_PARTNER.assoc_20F5EAD3848FBFF2C9E0F6D45CFF1BA9" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_SupplierPurchasingOrg" Role="FromRole_assoc_20F5EAD3848FBFF2C9E0F6D45CFF1BA9"/>
+                    <End EntitySet="A_SupplierPartnerFunc" Role="ToRole_assoc_20F5EAD3848FBFF2C9E0F6D45CFF1BA9"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_68C6FA4D5F974F8BBFCA5D234FA05107" Association="API_BUSINESS_PARTNER.assoc_68C6FA4D5F974F8BBFCA5D234FA05107" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartnerContact" Role="FromRole_assoc_68C6FA4D5F974F8BBFCA5D234FA05107"/>
+                    <End EntitySet="A_BPContactToAddress" Role="ToRole_assoc_68C6FA4D5F974F8BBFCA5D234FA05107"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_35D5A40C930BECE699C4526B1B1F8D1C" Association="API_BUSINESS_PARTNER.assoc_35D5A40C930BECE699C4526B1B1F8D1C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartnerAddress" Role="FromRole_assoc_35D5A40C930BECE699C4526B1B1F8D1C"/>
+                    <End EntitySet="A_AddressPhoneNumber" Role="ToRole_assoc_35D5A40C930BECE699C4526B1B1F8D1C"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_7256A9801E68AE14E59054C2738099F1" Association="API_BUSINESS_PARTNER.assoc_7256A9801E68AE14E59054C2738099F1" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartner" Role="FromRole_assoc_7256A9801E68AE14E59054C2738099F1"/>
+                    <End EntitySet="A_Supplier" Role="ToRole_assoc_7256A9801E68AE14E59054C2738099F1"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_07A4C6774A79F32D8C1BDA1CBE5A2FA7" Association="API_BUSINESS_PARTNER.assoc_07A4C6774A79F32D8C1BDA1CBE5A2FA7" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartner" Role="FromRole_assoc_07A4C6774A79F32D8C1BDA1CBE5A2FA7"/>
+                    <End EntitySet="A_BuPaIdentification" Role="ToRole_assoc_07A4C6774A79F32D8C1BDA1CBE5A2FA7"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_8273BE5CD7CC24B836264946436461DA" Association="API_BUSINESS_PARTNER.assoc_8273BE5CD7CC24B836264946436461DA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_CustomerCompany" Role="FromRole_assoc_8273BE5CD7CC24B836264946436461DA"/>
+                    <End EntitySet="A_CustomerDunning" Role="ToRole_assoc_8273BE5CD7CC24B836264946436461DA"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_138939C49DA3F66FEE8C74425F390DD3" Association="API_BUSINESS_PARTNER.assoc_138939C49DA3F66FEE8C74425F390DD3" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_Supplier" Role="FromRole_assoc_138939C49DA3F66FEE8C74425F390DD3"/>
+                    <End EntitySet="A_SupplierCompany" Role="ToRole_assoc_138939C49DA3F66FEE8C74425F390DD3"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_3747E462BFFBB3127682A67959ECC8AA" Association="API_BUSINESS_PARTNER.assoc_3747E462BFFBB3127682A67959ECC8AA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_CustomerSalesArea" Role="FromRole_assoc_3747E462BFFBB3127682A67959ECC8AA"/>
+                    <End EntitySet="A_CustSalesPartnerFunc" Role="ToRole_assoc_3747E462BFFBB3127682A67959ECC8AA"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_60DDA2597182EA56C114908472D2FB81" Association="API_BUSINESS_PARTNER.assoc_60DDA2597182EA56C114908472D2FB81" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartnerAddress" Role="FromRole_assoc_60DDA2597182EA56C114908472D2FB81"/>
+                    <End EntitySet="A_AddressPhoneNumber" Role="ToRole_assoc_60DDA2597182EA56C114908472D2FB81"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_49CF1243367384CB6C19B5648CA1F817" Association="API_BUSINESS_PARTNER.assoc_49CF1243367384CB6C19B5648CA1F817" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_CustomerSalesArea" Role="FromRole_assoc_49CF1243367384CB6C19B5648CA1F817"/>
+                    <End EntitySet="A_CustomerSalesAreaTax" Role="ToRole_assoc_49CF1243367384CB6C19B5648CA1F817"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_ABC4A572A4A8802D97BA70498CCE4A4E" Association="API_BUSINESS_PARTNER.assoc_ABC4A572A4A8802D97BA70498CCE4A4E" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartnerContact" Role="FromRole_assoc_ABC4A572A4A8802D97BA70498CCE4A4E"/>
+                    <End EntitySet="A_BPContactToFuncAndDept" Role="ToRole_assoc_ABC4A572A4A8802D97BA70498CCE4A4E"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_EC8BD55FE296CB9F7E96A12A10A83C8A" Association="API_BUSINESS_PARTNER.assoc_EC8BD55FE296CB9F7E96A12A10A83C8A" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BPContactToAddress" Role="FromRole_assoc_EC8BD55FE296CB9F7E96A12A10A83C8A"/>
+                    <End EntitySet="A_AddressFaxNumber" Role="ToRole_assoc_EC8BD55FE296CB9F7E96A12A10A83C8A"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_70A8B5CCADF265E097DC86BC7B699B31" Association="API_BUSINESS_PARTNER.assoc_70A8B5CCADF265E097DC86BC7B699B31" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_Customer" Role="FromRole_assoc_70A8B5CCADF265E097DC86BC7B699B31"/>
+                    <End EntitySet="A_CustomerSalesArea" Role="ToRole_assoc_70A8B5CCADF265E097DC86BC7B699B31"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_24C290CBC7FE69574AD9D79A5C631212" Association="API_BUSINESS_PARTNER.assoc_24C290CBC7FE69574AD9D79A5C631212" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartnerAddress" Role="FromRole_assoc_24C290CBC7FE69574AD9D79A5C631212"/>
+                    <End EntitySet="A_AddressHomePageURL" Role="ToRole_assoc_24C290CBC7FE69574AD9D79A5C631212"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_DADC7016DBB892642F90D68E0E47B6E8" Association="API_BUSINESS_PARTNER.assoc_DADC7016DBB892642F90D68E0E47B6E8" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartner" Role="FromRole_assoc_DADC7016DBB892642F90D68E0E47B6E8"/>
+                    <End EntitySet="A_BusinessPartnerTaxNumber" Role="ToRole_assoc_DADC7016DBB892642F90D68E0E47B6E8"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_091DBA85F5FE3E747FC3884B40B4EBFD" Association="API_BUSINESS_PARTNER.assoc_091DBA85F5FE3E747FC3884B40B4EBFD" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartnerAddress" Role="FromRole_assoc_091DBA85F5FE3E747FC3884B40B4EBFD"/>
+                    <End EntitySet="A_BuPaAddressUsage" Role="ToRole_assoc_091DBA85F5FE3E747FC3884B40B4EBFD"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_55F62B4F505C71EB6E4B122E91DC5745" Association="API_BUSINESS_PARTNER.assoc_55F62B4F505C71EB6E4B122E91DC5745" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_SupplierCompany" Role="FromRole_assoc_55F62B4F505C71EB6E4B122E91DC5745"/>
+                    <End EntitySet="A_SupplierWithHoldingTax" Role="ToRole_assoc_55F62B4F505C71EB6E4B122E91DC5745"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_91BCE13588BD3046353CD68D3098C2E5" Association="API_BUSINESS_PARTNER.assoc_91BCE13588BD3046353CD68D3098C2E5" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartner" Role="FromRole_assoc_91BCE13588BD3046353CD68D3098C2E5"/>
+                    <End EntitySet="A_BuPaIndustry" Role="ToRole_assoc_91BCE13588BD3046353CD68D3098C2E5"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_BB9464C0EE976A75A05F937B73A26763" Association="API_BUSINESS_PARTNER.assoc_BB9464C0EE976A75A05F937B73A26763" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_Customer" Role="FromRole_assoc_BB9464C0EE976A75A05F937B73A26763"/>
+                    <End EntitySet="A_CustomerCompany" Role="ToRole_assoc_BB9464C0EE976A75A05F937B73A26763"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_B2EAAC3147A4639C17A2CFEACA07BE23" Association="API_BUSINESS_PARTNER.assoc_B2EAAC3147A4639C17A2CFEACA07BE23" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_Supplier" Role="FromRole_assoc_B2EAAC3147A4639C17A2CFEACA07BE23"/>
+                    <End EntitySet="A_SupplierPurchasingOrg" Role="ToRole_assoc_B2EAAC3147A4639C17A2CFEACA07BE23"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_43B546339886BBB6ED35EA7CA84FB32B" Association="API_BUSINESS_PARTNER.assoc_43B546339886BBB6ED35EA7CA84FB32B" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartnerAddress" Role="FromRole_assoc_43B546339886BBB6ED35EA7CA84FB32B"/>
+                    <End EntitySet="A_AddressFaxNumber" Role="ToRole_assoc_43B546339886BBB6ED35EA7CA84FB32B"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_5E8DB5909F6A0FD5A1171E3650CDC3F9" Association="API_BUSINESS_PARTNER.assoc_5E8DB5909F6A0FD5A1171E3650CDC3F9" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_SupplierCompany" Role="FromRole_assoc_5E8DB5909F6A0FD5A1171E3650CDC3F9"/>
+                    <End EntitySet="A_SupplierDunning" Role="ToRole_assoc_5E8DB5909F6A0FD5A1171E3650CDC3F9"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_80838433DCE8E16AA7C9031C32896631" Association="API_BUSINESS_PARTNER.assoc_80838433DCE8E16AA7C9031C32896631" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartner" Role="FromRole_assoc_80838433DCE8E16AA7C9031C32896631"/>
+                    <End EntitySet="A_Customer" Role="ToRole_assoc_80838433DCE8E16AA7C9031C32896631"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_65B2B550EF37ECC341EC132360E3D0A8" Association="API_BUSINESS_PARTNER.assoc_65B2B550EF37ECC341EC132360E3D0A8" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_CustomerCompany" Role="FromRole_assoc_65B2B550EF37ECC341EC132360E3D0A8"/>
+                    <End EntitySet="A_CustomerWithHoldingTax" Role="ToRole_assoc_65B2B550EF37ECC341EC132360E3D0A8"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_A30D7A481BC8C28A25685BA876365019" Association="API_BUSINESS_PARTNER.assoc_A30D7A481BC8C28A25685BA876365019" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BPContactToAddress" Role="FromRole_assoc_A30D7A481BC8C28A25685BA876365019"/>
+                    <End EntitySet="A_AddressPhoneNumber" Role="ToRole_assoc_A30D7A481BC8C28A25685BA876365019"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_313909BAAED14CA9CB4829C648286478" Association="API_BUSINESS_PARTNER.assoc_313909BAAED14CA9CB4829C648286478" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BPContactToAddress" Role="FromRole_assoc_313909BAAED14CA9CB4829C648286478"/>
+                    <End EntitySet="A_AddressHomePageURL" Role="ToRole_assoc_313909BAAED14CA9CB4829C648286478"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_02AC1AF45478434AAB93B18ECA2FB863" Association="API_BUSINESS_PARTNER.assoc_02AC1AF45478434AAB93B18ECA2FB863" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartner" Role="FromRole_assoc_02AC1AF45478434AAB93B18ECA2FB863"/>
+                    <End EntitySet="A_BusinessPartnerContact" Role="ToRole_assoc_02AC1AF45478434AAB93B18ECA2FB863"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_FB863C7C69262D926CE14CA6A50667DB" Association="API_BUSINESS_PARTNER.assoc_FB863C7C69262D926CE14CA6A50667DB" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartner" Role="FromRole_assoc_FB863C7C69262D926CE14CA6A50667DB"/>
+                    <End EntitySet="A_BusinessPartnerRole" Role="ToRole_assoc_FB863C7C69262D926CE14CA6A50667DB"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_76A1D4C9690D91482219A96E6133DCA1" Association="API_BUSINESS_PARTNER.assoc_76A1D4C9690D91482219A96E6133DCA1" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BPContactToAddress" Role="FromRole_assoc_76A1D4C9690D91482219A96E6133DCA1"/>
+                    <End EntitySet="A_AddressEmailAddress" Role="ToRole_assoc_76A1D4C9690D91482219A96E6133DCA1"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_B21DC96A1904D36E94FBE84771BD7E99" Association="API_BUSINESS_PARTNER.assoc_B21DC96A1904D36E94FBE84771BD7E99" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartnerAddress" Role="FromRole_assoc_B21DC96A1904D36E94FBE84771BD7E99"/>
+                    <End EntitySet="A_AddressEmailAddress" Role="ToRole_assoc_B21DC96A1904D36E94FBE84771BD7E99"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_6247ED959B75350E6EA6CEDD2CBEC7E7" Association="API_BUSINESS_PARTNER.assoc_6247ED959B75350E6EA6CEDD2CBEC7E7" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartner" Role="FromRole_assoc_6247ED959B75350E6EA6CEDD2CBEC7E7"/>
+                    <End EntitySet="A_BusinessPartnerAddress" Role="ToRole_assoc_6247ED959B75350E6EA6CEDD2CBEC7E7"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_05F0DA10FFAB2836605571E5ABB6E5B9" Association="API_BUSINESS_PARTNER.assoc_05F0DA10FFAB2836605571E5ABB6E5B9" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BusinessPartner" Role="FromRole_assoc_05F0DA10FFAB2836605571E5ABB6E5B9"/>
+                    <End EntitySet="A_BusinessPartnerBank" Role="ToRole_assoc_05F0DA10FFAB2836605571E5ABB6E5B9"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_E5744DCC3F8BA081306832D86DBAE35B" Association="API_BUSINESS_PARTNER.assoc_E5744DCC3F8BA081306832D86DBAE35B" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="A_BPContactToAddress" Role="FromRole_assoc_E5744DCC3F8BA081306832D86DBAE35B"/>
+                    <End EntitySet="A_AddressPhoneNumber" Role="ToRole_assoc_E5744DCC3F8BA081306832D86DBAE35B"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="API_BUSINESS_PARTNER.API_BUSINESS_PARTNER_Entities"
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://cloud.sapienssolutions.eu/sap/opu/odata/sap/API_BUSINESS_PARTNER/$metadata"
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+                <atom:link rel="latest-version" href="http://cloud.sapienssolutions.eu/sap/opu/odata/sap/API_BUSINESS_PARTNER/$metadata"
+                    xmlns:atom="http://www.w3.org/2005/Atom"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>
